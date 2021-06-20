@@ -2,21 +2,13 @@
   "name": "microsoft-engage-project",
   "version": "1.0.0",
   "description": "This webrtc based video streaming feature !",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hkaur008/microsoft-engage-project.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hkaur008/microsoft-engage-project/issues"
-  },
-  "homepage": "https://github.com/hkaur008/microsoft-engage-project#readme",
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
