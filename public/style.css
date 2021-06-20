@@ -23,7 +23,7 @@ video {
   flex: 1;
   object-fit: cover;
   border: 1px solid #000;
-  border-radius: 5%;
+  border-radius: 5px;
   max-width: 600px;
 }
 .main {
