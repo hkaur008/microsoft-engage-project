@@ -74,12 +74,19 @@ peer.on('call', function (call) {
 const userName ="hargun";
 
 peer.on('open', (id) => {
-  socket.emit('join-room', ROOM_ID, id , userName);
-
+  nameInput(id);
+  
 });
 
-// CHAT
+//username input
+const nameInput = (id)=> {
+  var userName = prompt("Please enter your name", "Hargun");
+  if (userName != null) {
+    socket.emit('join-room', ROOM_ID, id , userName);
+  }
+}
 
+// CHAT
 const connectToNewUser = (userId, streams) => {
   var call = peer.call(userId, streams);
   console.log(call);

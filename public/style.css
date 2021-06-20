@@ -16,13 +16,14 @@ body {
   width: 100%;
   align-items: center;
   flex-wrap: wrap;
-  overflow-y: auto;
+
 }
 video {
   display: block;
   flex: 1;
   object-fit: cover;
-  border: 5px solid #000;
+  border: 1px solid #000;
+  border-radius: 5%;
   max-width: 600px;
 }
 .main {
@@ -113,6 +114,7 @@ video {
   list-style: none;
   border-bottom: 1px solid #3d3d42;
   padding: 10px 0;
+  
 }
 .unmute {
   color: red;
