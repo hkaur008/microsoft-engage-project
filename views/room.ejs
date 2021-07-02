@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HOME</title>
+    <title>Microsoft Teams</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon-9e2b8f1.ico?v=2" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -13,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.3.1/peerjs.min.js.map"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const ROOM_ID = "<%= roomId %>";
+      const ROOM_ID = "<%= roomId %>"; 
     </script>
   </head>
   <body>
@@ -30,7 +31,6 @@
               onclick="muteUnmute()"
             >
               <i class="fa fa-microphone"></i>
-              <span>Mute</span>
             </div>
             <div
               class="main__controls_button"
@@ -38,36 +38,32 @@
               onclick="playStop()"
             >
               <i class="fa fa-video-camera"></i>
-              <span>Pause Video</span>
             </div>
           </div>
 
           <div class="main__controls_block">
             <div class="main__controls_button">
               <i class="fa fa-shield"></i>
-              <span>Security</span>
             </div>
             <div class="main__controls_button">
               <i class="fa fa-users"></i>
-              <span>Participants</span>
             </div>
             <div class="main__controls_button">
               <i class="fa fa-comment"></i>
-              <span>Chat</span>
             </div>
           </div>
 
           <div class="main__controls_block">
             <div class="main__controls_button leaveMeeting" id="leave-meeting">
               <i class="fa fa-times"></i>
-              <span class="">Leave Meeting</span>
+              
             </div>
           </div>
         </div>
       </div>
       <div class="main__right">
         <div class="main__header">
-          <h6>Chat</h6>
+          <h6>Meeting Chat</h6>
         </div>
         <div class="main__chat__window" id="main__chat__window">
           <ul class="messages" id="all_messages"></ul>
@@ -82,5 +78,7 @@
       </div>
     </div>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>
