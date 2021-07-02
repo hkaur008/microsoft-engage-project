@@ -9,7 +9,7 @@ myVideo.muted = true;
 var peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443',
+  port: '3030',
 });
 
 let myVideoStream;
@@ -153,3 +153,7 @@ const setMuteButton = () => {
   const html = `<i class='fa fa-microphone'></i>`;
   document.getElementById('muteButton').innerHTML = html;
 };
+
+const shareScreen =()=>{
+  console.log("screen share ");
+}
