@@ -70,10 +70,9 @@ video {
   cursor: pointer;
   justify-content: center;
   align-items: center;
-  width: 3.2rem;
   height: 3.2rem;
   vertical-align: top;
-  padding: 1.9rem;
+  padding: 1.0rem;
   transition: all 0.3s ease-in-out;
 }
 .main__controls_button span {
@@ -130,4 +129,21 @@ video {
 }
 .unmute {
   color: red;
+}
+abbr {
+  position: relative;
+  display: inline-block;
+}
+abbr[title]:hover::after {
+  position: absolute;
+  content: attr(title);
+background-color: blueviolet;
+color: white;
+font-size: 11px;
+top:2rem;
+right:1rem;
+padding:0.4rem;
+border-bottom-left-radius:5px ;
+border-bottom-right-radius: 5px;
+border-top-left-radius: 5px;
 }

@@ -4,6 +4,7 @@ const all_messages = document.getElementById('all_messages');
 const main__chat__window = document.getElementById('main__chat__window');
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
+const myScreen = document.createElement('video');
 const photoFilter = document.getElementById('photo-filter');
 let filter = 'none';
 myVideo.muted = true;
@@ -51,7 +52,7 @@ navigator.mediaDevices
     });
 
     socket.on('createMessage', (msg , userName) => {
-      console.log(msg);
+    
       let li = document.createElement('li');
       li.innerHTML =  userName+" : "+msg;
       all_messages.append(li);
@@ -91,12 +92,10 @@ const nameInput = (id)=> {
 
 // CHAT
 const connectToNewUser = (userId, streams) => {
-  var call = peer.call(userId, streams);
-  console.log(call);
+  var call = peer.call(userId, streams);;
   var video = document.createElement('video');
 
   call.on('stream', (userVideoStream) => {
-    console.log(userVideoStream);
     addVideoStream(video, userVideoStream);
   });
 
@@ -159,17 +158,26 @@ const setMuteButton = () => {
   document.getElementById('muteButton').innerHTML = html;
 };
 
-const shareScreen =()=>{
-  console.log("screen share")
+const shareScreen =()=> {
+  navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+      const screenTrack = stream;
+
+      addVideoStream(myScreen,screenTrack);
+      screenTrack.onended = function() {
+          
+      }
+  })
 }
 
-//code for photo filters 
-// Filter event
+
+//photo filters 
 photoFilter.addEventListener('change', (e)=> {
   // Set filter to chosen option
   filter = e.target.value;
   // Set filter to video
   myVideo.style.filter = filter;
+
+  
 
   e.preventDefault(); 
 });

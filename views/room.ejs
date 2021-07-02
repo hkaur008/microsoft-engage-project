@@ -30,16 +30,19 @@
               id="muteButton"
               onclick="muteUnmute()"
             >
-              <i class="fa fa-microphone"></i>
+            <abbr title="Audio"><i class="fa fa-microphone"></i></abbr>
             </div>
             <div
               class="main__controls_button"
               id="playPauseVideo"
               onclick="playStop()"
             >
-              <i class="fa fa-video-camera"></i>
+            <abbr title="Video"><i class="fa fa-video-camera"></i></abbr>
             </div>
-            <select id="photo-filter" class="select">
+            <div
+              class="main__controls_button "
+            >
+            <abbr title="Video Filters"><select id="photo-filter" class="select">
               <option value="none">Normal</option>
               <option value="grayscale(100%)">Grayscale</option>
               <option value="sepia(100%)">Sepia</option>
@@ -47,18 +50,18 @@
               <option value="hue-rotate(90deg)">Hue</option>
               <option value="blur(10px)">Blur</option>
               <option value="contrast(200%)">Contrast</option>
-            </select>
+            </select></abbr>  </div>
           </div>
 
           <div class="main__controls_block">
             <div class="main__controls_button" id="shareScreen"  onclick="shareScreen()">
-              <i class="fa fa-shield"></i>
+              <abbr title="Screen Sharing"><i class="fa fa-shield"></i></abbr>
             </div>
             <div class="main__controls_button">
-              <i class="fa fa-users"></i>
+              <abbr title="Participants"><i class="fa fa-users"></i></abbr>
             </div>
             <div class="main__controls_button">
-              <i class="fa fa-comment"></i>
+              <abbr title="Chat"><i class="fa fa-comment"></i></abbr>
             </div>
           </div>
 
