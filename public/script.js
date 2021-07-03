@@ -4,7 +4,6 @@ const all_messages = document.getElementById('all_messages');
 const main__chat__window = document.getElementById('main__chat__window');
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
-const myScreen = document.createElement('video');
 const photoFilter = document.getElementById('photo-filter');
 let filter = 'none';
 myVideo.muted = true;
@@ -159,16 +158,31 @@ const setMuteButton = () => {
 };
 
 const shareScreen =()=> {
-  navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+  navigator.mediaDevices.getDisplayMedia({
+    video: {
+      cursor: 'always'
+    },
+    audio: {
+      echoCancellation: true,
+      noiseSuppression: true
+    }
+  }).then(stream => {
       const screenTrack = stream;
-
-      addVideoStream(myScreen,screenTrack);
-      screenTrack.onended = function() {
-          
+      const myScreen = document.createElement('video');
+      addVideoStream(myScreen, screenTrack);
+      
+      screenTrack.onended = ()=> {
+          stopScreenShare();
       }
-  })
+   }, (err)=> {
+    console.log('Failed to get screen sharing', err);
+  }
+   )
 }
 
+const stopScreenShare=()=>{
+
+}
 
 //photo filters 
 photoFilter.addEventListener('change', (e)=> {
@@ -176,9 +190,6 @@ photoFilter.addEventListener('change', (e)=> {
   filter = e.target.value;
   // Set filter to video
   myVideo.style.filter = filter;
-
-  
-
   e.preventDefault(); 
 });
 
