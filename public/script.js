@@ -1,10 +1,11 @@
 const socket = io('/');
-const chatInputBox = document.getElementById('chat_message');
+const messageInput = document.getElementById('chat_message');
 const all_messages = document.getElementById('all_messages');
 const main__chat__window = document.getElementById('main__chat__window');
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 const photoFilter = document.getElementById('photo-filter');
+const msg_send_btn = document.getElementById('msg_send_btn');
 let filter = 'none';
 myVideo.muted = true;
 
@@ -42,18 +43,32 @@ navigator.mediaDevices
     socket.on('user-connected', (userId) => {
       connectToNewUser(userId, stream);
     });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.which === 13 && chatInputBox.value != '') {
-        socket.emit('message', chatInputBox.value);
-        chatInputBox.value = '';
+//for enter key
+  document.addEventListener('keypress', (e) => {
+     if (e.which === 13 && messageInput.value != '') {
+        sendMessage(messageInput.value);
+        messageInput.value = '';
       }
     });
+//for send button 
+  msg_send_btn.addEventListener('click', (e) => {
+    // prevent refresh page
+    e.preventDefault();
+    if (!messageInput.value) return;
+    sendMessage(messageInput.value);
+    messageInput.value = '';
+ 
+  });
+
+  // send message 
+  const sendMessage = (msg) => {
+      socket.emit('message', msg);
+  }
 
     socket.on('createMessage', (msg , userName) => {
     
       let li = document.createElement('li');
-      li.innerHTML =  userName+" : "+msg;
+      li.innerHTML =  userName+' : '+msg;
       all_messages.append(li);
       main__chat__window.scrollTop = main__chat__window.scrollHeight;
     });
@@ -74,7 +89,7 @@ peer.on('call', (call)=> {
   );
 });
 
-const userName ="hargun";
+const userName ='hargun';
 
 peer.on('open', (id) => {
   nameInput(id);
@@ -83,7 +98,7 @@ peer.on('open', (id) => {
 
 //username input
 const nameInput = (id)=> {
-  var userName = prompt("Please enter your name", "Hargun");
+  var userName = prompt('Please enter your name', 'Hargun');
   if (userName != null) {
     socket.emit('join-room', ROOM_ID, id , userName);
   }

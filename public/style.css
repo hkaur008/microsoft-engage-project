@@ -117,6 +117,9 @@ video {
   user-select: none;
   outline: none;
 }
+input#chat_message {
+  background: #f4f5f7;
+}
 
 #all_messages li {
     color: #3d3d42;
