@@ -67,30 +67,80 @@
       </div>
     </div>
 
-    
+
     <!-- chat section -->
-    <div class="main__right">
-      <div class="main__header">
-        <h6>Meeting Chat</h6>
-      </div>
-      <div class="main__chat__window" id="main__chat__window">
-        <ul class="messages" id="all_messages"></ul>
-      </div>
-      <div class="main__message_container input-group">
-        <input type="text" id="chat_message" class="bg-white-20 form-control" placeholder="Type message here.." aria-label="Recipient's username with two button addons">
-        <button class="btn btn-outline-secondary" id="msg_emoji_btn" type="button"><i class="fas fa-smile"></i></button>
-        <button class="btn btn-outline-secondary" id="msg_send_btn" type="button"><i class="fas fa-paper-plane"></i></button>
+    <div class="msger main__right">
+      <div class="msger-header">
+      <div class="msger-header-title ">
+        <h6><i class="fas fa-comment-alt"></i>Meeting Chat</h6>
       </div>
     </div>
-  </div>
-  <script src="script.js"></script>
-  <script src="https://kit.fontawesome.com/d2f1016e6f.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+      <div class="main__chat__window" id="main__chat__window">
+        <main class="msger-chat">
+          <div class="msg left-msg">
+            <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)">
+            </div>
+
+            <div class="msg-bubble">
+              <div class="msg-info">
+                <div class="msg-info-name">BOT</div>
+                <div class="msg-info-time">12:45</div>
+              </div>
+
+              <div class="msg-text">
+                Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
+              </div>
+            </div>
+          </div>
+
+          <div class="msg right-msg">
+            <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">
+            </div>
+
+            <div class="msg-bubble">
+              <div class="msg-info">
+                <div class="msg-info-name">Sajad</div>
+                <div class="msg-info-time">12:46</div>
+              </div>
+
+              <div class="msg-text">
+                You can change your name in JS section!
+              </div>
+            </div>
+          </div>
+        </main>
+        <ul class="messages" id="all_messages">
+        </ul>
+      </div>    
+      <div class="main__message_container input-group">
+        <input type="text" id="chat_message" class="bg-white-20 form-control msger-input" placeholder="Type message here.."
+          aria-label="Recipient's username with two button addons">
+        <!-- emoji and send button -->
+        <button class="btn btn-outline-secondary" id="msg_emoji_btn" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i
+            class="fas fa-smile"></i></button>
+        <button class="btn btn-outline-secondary msger-send-btn" id="msg_send_btn" type="button"><i
+            class="fas fa-paper-plane"></i></button>
+          
+        <!-- collapsible emoji section  -->
+        <div class="collapse" id="collapseExample">
+          <div id="msgerEmojiPicker">
+            <emoji-picker class="light"></emoji-picker>
+          </div>
+        </div>
+        <!-- end emoji section -->
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/d2f1016e6f.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+    <!-- emojin picker -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+
 </body>
 
 </html>

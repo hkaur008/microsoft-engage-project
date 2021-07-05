@@ -6,14 +6,51 @@ const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 const photoFilter = document.getElementById('photo-filter');
 const msg_send_btn = document.getElementById('msg_send_btn');
+emojiPicker =document.getElementsByTagName("emoji-picker")[0];
 let filter = 'none';
 myVideo.muted = true;
+
+
+// messenger
+
+const msgerForm = get(".msger-inputarea");
+const msgerInput = get(".msger-input");
+const msgerChat = get(".msger-chat");
+
+const BOT_MSGS = [
+  "Hi, how are you?",
+  "Ohh... I can't understand what you trying to say. Sorry!",
+  "I like to play games... But I don't know how to play!",
+  "Sorry if my answers are not relevant. :))",
+  "I feel sleepy! :("
+];
+
+// Icons made by Freepik from www.flaticon.com
+const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
+const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
+const BOT_NAME = "BOT";
+const userName ='hargun';
+let myId = null ;
 
 var peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
   port: '3030',
 });
+
+peer.on('open', (id) => {
+  nameInput(id);
+  
+});
+
+//username input
+const nameInput = (id)=> {
+  var userName = prompt('Please enter your name', 'Hargun');
+  if (userName != null) {
+    socket.emit('join-room', ROOM_ID, id , userName);
+    myId=id;
+  }
+}
 
 let myVideoStream;
 
@@ -43,33 +80,41 @@ navigator.mediaDevices
     socket.on('user-connected', (userId) => {
       connectToNewUser(userId, stream);
     });
-//for enter key
-  document.addEventListener('keypress', (e) => {
-     if (e.which === 13 && messageInput.value != '') {
-        sendMessage(messageInput.value);
-        messageInput.value = '';
-      }
+//enter key
+    document.addEventListener('keypress', (e) => {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        msg_send_btn.click();
+       }
+     });
+    
+//send button    
+    msg_send_btn.addEventListener("click", event => {
+      event.preventDefault();
+      const msgText = msgerInput.value;
+      if (!msgText) return;
+      sendMessage(msgText);
+      console.log(userName);
+      msgerInput.value = "";
     });
-//for send button 
-  msg_send_btn.addEventListener('click', (e) => {
-    // prevent refresh page
-    e.preventDefault();
-    if (!messageInput.value) return;
-    sendMessage(messageInput.value);
-    messageInput.value = '';
- 
-  });
 
   // send message 
   const sendMessage = (msg) => {
       socket.emit('message', msg);
   }
 
-    socket.on('createMessage', (msg , userName) => {
-    
-      let li = document.createElement('li');
-      li.innerHTML =  userName+' : '+msg;
-      all_messages.append(li);
+  //emoji picker 
+  emojiPicker.addEventListener("emoji-click", (e) => {
+    //console.log(e.detail);
+    //console.log(e.detail.emoji.unicode);
+    messageInput.value += e.detail.emoji.unicode;
+  });
+
+    socket.on('createMessage', (msg , userName , givenId) => {
+      if(givenId===myId)
+        appendMessage(userName, PERSON_IMG, "right", msg);
+      else
+      appendMessage(userName, PERSON_IMG, "left", msg);
       main__chat__window.scrollTop = main__chat__window.scrollHeight;
     });
   });
@@ -89,20 +134,6 @@ peer.on('call', (call)=> {
   );
 });
 
-const userName ='hargun';
-
-peer.on('open', (id) => {
-  nameInput(id);
-  
-});
-
-//username input
-const nameInput = (id)=> {
-  var userName = prompt('Please enter your name', 'Hargun');
-  if (userName != null) {
-    socket.emit('join-room', ROOM_ID, id , userName);
-  }
-}
 
 // CHAT
 const connectToNewUser = (userId, streams) => {
@@ -154,21 +185,21 @@ const muteUnmute = () => {
 };
 
 const setPlayVideo = () => {
-  const html = `<i class='unmute fa fa-pause-circle'></i>`;
+  const html = `<i class='unmute fas fa-pause-circle'></i>`;
   document.getElementById('playPauseVideo').innerHTML = html;
 };
 
 const setStopVideo = () => {
-  const html = `<i class=' fa fa-video-camera'></i>`;
+  const html = `<i class=' fas fa-video-camera'></i>`;
   document.getElementById('playPauseVideo').innerHTML = html;
 };
 
 const setUnmuteButton = () => {
-  const html = `<i class='unmute fa fa-microphone-slash'></i>`;
+  const html = `<i class='unmute fas fa-microphone-slash'></i>`;
   document.getElementById('muteButton').innerHTML = html;
 };
 const setMuteButton = () => {
-  const html = `<i class='fa fa-microphone'></i>`;
+  const html = `<i class='fas fa-microphone'></i>`;
   document.getElementById('muteButton').innerHTML = html;
 };
 
@@ -209,3 +240,41 @@ photoFilter.addEventListener('change', (e)=> {
 });
 
 
+
+function appendMessage(name, img, side, text) {
+  //   Simple solution for small apps
+  const msgHTML = `
+    <div class="msg ${side}-msg">
+      <div class="msg-img" style="background-image: url(${img})"></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">${name}</div>
+          <div class="msg-info-time">${formatDate(new Date())}</div>
+        </div>
+
+        <div class="msg-text">${text}</div>
+      </div>
+    </div>
+  `;
+
+  msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+  msgerChat.scrollTop += 500;
+}
+
+
+// Utils
+function get(selector, root = document) {
+  return root.querySelector(selector);
+}
+
+function formatDate(date) {
+  const h = "0" + date.getHours();
+  const m = "0" + date.getMinutes();
+
+  return `${h.slice(-2)}:${m.slice(-2)}`;
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
