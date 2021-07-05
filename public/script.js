@@ -17,18 +17,10 @@ const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
 
-const BOT_MSGS = [
-  "Hi, how are you?",
-  "Ohh... I can't understand what you trying to say. Sorry!",
-  "I like to play games... But I don't know how to play!",
-  "Sorry if my answers are not relevant. :))",
-  "I feel sleepy! :("
-];
 
 // Icons made by Freepik from www.flaticon.com
-const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
-const BOT_NAME = "BOT";
+
 const userName ='hargun';
 let myId = null ;
 
@@ -78,9 +70,13 @@ navigator.mediaDevices
       });
     });
 
+
+//user connected    
     socket.on('user-connected', (userId) => {
       connectToNewUser(userId, stream);
     });
+
+  
 //enter key
     document.addEventListener('keypress', (e) => {
       if (e.keyCode === 13) {
@@ -122,10 +118,10 @@ navigator.mediaDevices
 
 peer.on('call', (call)=> {
   getUserMedia(
-    { video: true, audio: true }, (stream) => {
+    { video: true, audio: true }, (stream ) => {
       call.answer(stream); // Answer the call with an A/V stream.
       const video = document.createElement('video');
-    video.setAttribute("id","hargun")
+    video.setAttribute("id", call.peer);
       call.on('stream', (remoteStream)=> {
         addVideoStream(video, remoteStream);
       });
@@ -138,7 +134,7 @@ peer.on('call', (call)=> {
 
 // CHAT
 const connectToNewUser = (userId, streams) => {
-  var call = peer.call(userId, streams);;
+  var call = peer.call(userId, streams);
   var video = document.createElement('video');
   video.setAttribute("id", userId);
 
@@ -191,7 +187,7 @@ const setPlayVideo = () => {
 };
 
 const setStopVideo = () => {
-  const html = `<i class=' fas fa-video-camera'></i>`;
+  const html = `<i class=' fas fa-video'></i>`;
   document.getElementById('playPauseVideo').innerHTML = html;
 };
 
@@ -282,3 +278,6 @@ function random(min, max) {
 
 // messenger code ends 
 
+socket.on("user-disconnected", (userId)=>{
+  document.getElementById(userId).remove();
+});
