@@ -13,6 +13,8 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.3.1/peerjs.min.js.map"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const ROOM_ID = "<%= roomId %>";
@@ -20,8 +22,9 @@
 </head>
 
 <body>
+  <div id="wrapper">
   <div class="main">
-    <div class="main__left">
+    <div class="main__left page-content-wrapper">
       <div class="main__videos">
         <div id="video-grid"></div>
       </div>
@@ -50,29 +53,35 @@
           <div class="main__controls_button" id="shareScreen" onclick="shareScreen()">
             <abbr title="Screen Sharing"><i class="fas fa-desktop"></i></abbr>
           </div>
+          <div class="main__controls_button" id="waveButton">
+            <abbr title="wave"><i class="fas fa-hand-paper"></i></abbr>
+          </div>
           <div class="main__controls_button">
             <abbr title="Participants"><i class="fas fa-users"></i></abbr>
           </div>
-          <div class="main__controls_button">
-            <abbr title="Chat"><i class="fas fa-comment"></i></abbr>
+          <div class="main__controls_button" id="chat-toggle">
+            <abbr title="Chat"><i class="fas fa-comment" ></i></abbr>
           </div>
         </div>
+       
+
 
         <div class="main__controls_block">
           <div class="main__controls_button leaveMeeting" id="leave-meeting">
-            <i class="fas fa-times"></i>
+            <i class="fas fa-times" data-bs-toggle="tooltip" data-bs-placement="top" title="Hang Up"></i>
 
           </div>
         </div>
       </div>
     </div>
 
-
+    
+    <div id="chatbar-wrapper">
     <!-- chat section -->
     <div class="msger main__right">
       <div class="msger-header">
       <div class="msger-header-title ">
-        <h6><i class="fas fa-comment-alt"></i>Meeting Chat</h6>
+        <h6><i class="fas fa-comment-alt"></i> &nbsp; Meeting Chat</h6>
       </div>
     </div>
       <div class="main__chat__window" id="main__chat__window">
@@ -84,33 +93,14 @@
             <div class="msg-bubble">
               <div class="msg-info">
                 <div class="msg-info-name">BOT</div>
-                <div class="msg-info-time">12:45</div>
               </div>
 
               <div class="msg-text">
-                Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
-              </div>
-            </div>
-          </div>
-
-          <div class="msg right-msg">
-            <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">
-            </div>
-
-            <div class="msg-bubble">
-              <div class="msg-info">
-                <div class="msg-info-name">Sajad</div>
-                <div class="msg-info-time">12:46</div>
-              </div>
-
-              <div class="msg-text">
-                You can change your name in JS section!
+                Hi, welcome to meeting! Go ahead and send me a message. 😄
               </div>
             </div>
           </div>
         </main>
-        <ul class="messages" id="all_messages">
-        </ul>
       </div>    
       <div class="main__message_container input-group">
         <input type="text" id="chat_message" class="bg-white-20 form-control msger-input" placeholder="Type message here.."
@@ -131,10 +121,16 @@
         <!-- end emoji section -->
       </div>
     </div>
+    </div>
+    </div></div>
     <script src="script.js"></script>
+    <script>
+      $("#chat-toggle").click(function (e) {
+  e.preventDefault();
+  $("#wrapper").toggleClass("toggled");
+});
+    </script>
     <script src="https://kit.fontawesome.com/d2f1016e6f.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>

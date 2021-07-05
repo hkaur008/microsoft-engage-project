@@ -66,6 +66,7 @@ navigator.mediaDevices
   })
   .then((stream) => {
     myVideoStream = stream;
+    myVideo.setAttribute("id", myId);
     addVideoStream(myVideo, stream);
 
     peer.on('call', (call) => {
@@ -124,7 +125,7 @@ peer.on('call', (call)=> {
     { video: true, audio: true }, (stream) => {
       call.answer(stream); // Answer the call with an A/V stream.
       const video = document.createElement('video');
-
+    video.setAttribute("id","hargun")
       call.on('stream', (remoteStream)=> {
         addVideoStream(video, remoteStream);
       });
@@ -139,6 +140,7 @@ peer.on('call', (call)=> {
 const connectToNewUser = (userId, streams) => {
   var call = peer.call(userId, streams);;
   var video = document.createElement('video');
+  video.setAttribute("id", userId);
 
   call.on('stream', (userVideoStream) => {
     addVideoStream(video, userVideoStream);
@@ -151,7 +153,6 @@ const addVideoStream = (videoEl, stream) => {
   videoEl.addEventListener('loadedmetadata', () => {
     videoEl.play();
   });
-
   videoGrid.append(videoEl);
   let totalUsers = document.getElementsByTagName('video').length;
   if (totalUsers > 1) {
@@ -215,7 +216,7 @@ const shareScreen =()=> {
   }).then(stream => {
       const screenTrack = stream;
       const myScreen = document.createElement('video');
-      addVideoStream(myScreen, screenTrack);
+      addVideoStream(myScreen, screenTrack );
       
       screenTrack.onended = ()=> {
           stopScreenShare();
@@ -240,9 +241,9 @@ photoFilter.addEventListener('change', (e)=> {
 });
 
 
+// messenger code starts
 
-function appendMessage(name, img, side, text) {
-  //   Simple solution for small apps
+function appendMessage(name, img, side, text) {  
   const msgHTML = `
     <div class="msg ${side}-msg">
       <div class="msg-img" style="background-image: url(${img})"></div>
@@ -278,3 +279,6 @@ function formatDate(date) {
 function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
+
+// messenger code ends 
+
