@@ -1,84 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Microsoft Teams</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon-9e2b8f1.ico?v=2" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.3.1/peerjs.min.js.map"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const ROOM_ID = "<%= roomId %>"; 
-    </script>
-  </head>
-  <body>
-    <div class="main">
-      <div class="main__left">
-        <div class="main__videos">
-          <div id="video-grid"></div>
-        </div>
-        <div class="main__controls">
-          <div class="main__controls_block">
-            <div
-              class="main__controls_button"
-              id="muteButton"
-              onclick="muteUnmute()"
-            >
-              <i class="fa fa-microphone"></i>
-            </div>
-            <div
-              class="main__controls_button"
-              id="playPauseVideo"
-              onclick="playStop()"
-            >
-              <i class="fa fa-video-camera"></i>
-            </div>
-          </div>
 
-          <div class="main__controls_block">
-            <div class="main__controls_button">
-              <i class="fa fa-shield"></i>
-            </div>
-            <div class="main__controls_button">
-              <i class="fa fa-users"></i>
-            </div>
-            <div class="main__controls_button">
-              <i class="fa fa-comment"></i>
-            </div>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microsoft Teams</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon-9e2b8f1.ico?v=2" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.3.1/peerjs.min.js.map"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const ROOM_ID = "<%= roomId %>";
+  </script>
+</head>
 
-          <div class="main__controls_block">
-            <div class="main__controls_button leaveMeeting" id="leave-meeting">
-              <i class="fa fa-times"></i>
-              
-            </div>
-          </div>
-        </div>
+<body>
+  <div id="wrapper">
+  <div class="main">
+    <div class="main__left page-content-wrapper">
+      <div class="main__videos">
+        <div id="video-grid"></div>
       </div>
-      <div class="main__right">
-        <div class="main__header">
-          <h6>Meeting Chat</h6>
+      <div class="main__controls">
+        <div class="main__controls_block">
+          <div class="main__controls_button" id="muteButton" onclick="muteUnmute()">
+            <abbr title="Audio"><i class="fas fa-microphone"></i></abbr>
+          </div>
+          <div class="main__controls_button" id="playPauseVideo" onclick="playStop()">
+           <i class="fas fa-video"></i>
+          </div>
+          <div class="main__controls_button ">
+            <abbr title="Video Filters"><select id="photo-filter" class="select">
+                <option value="none">Normal</option>
+                <option value="grayscale(100%)">Grayscale</option>
+                <option value="sepia(100%)">Sepia</option>
+                <option value="invert(100%)">Invert</option>
+                <option value="hue-rotate(90deg)">Hue</option>
+                <option value="blur(10px)">Blur</option>
+                <option value="contrast(200%)">Contrast</option>
+              </select></abbr>
+          </div>
         </div>
-        <div class="main__chat__window" id="main__chat__window">
-          <ul class="messages" id="all_messages"></ul>
+
+        <div class="main__controls_block">
+          <div class="main__controls_button" id="shareScreen" onclick="shareScreen()">
+           <i class="fas fa-desktop"></i>
+          </div>
+          <div class="main__controls_button" id="waveButton">
+            <i class="fas fa-hand-paper"></i>
+          </div>
+          <div class="main__controls_button">
+           <i class="fas fa-users"></i>
+          </div>
+          <div class="main__controls_button" id="chat-toggle">
+            <i class="fas fa-comment" ></i>
+          </div>
         </div>
-        <div class="main__message_container">
-          <input
-            type="text"
-            id="chat_message"
-            placeholder="Type message here.."
-          />
+       
+
+
+        <div class="main__controls_block">
+          <div class="main__controls_button leaveMeeting" id="leave-meeting">
+            <i class="fas fa-times" data-bs-toggle="tooltip" data-bs-placement="top" title="Hang Up"></i>
+
+          </div>
         </div>
       </div>
     </div>
+
+    
+    <div id="chatbar-wrapper">
+    <!-- chat section -->
+    <div class="msger main__right">
+      <div class="msger-header">
+      <div class="msger-header-title ">
+        <h6><i class="fas fa-comment-alt"></i> &nbsp; Meeting Chat</h6>
+      </div>
+    </div>
+      <div class="main__chat__window" id="main__chat__window">
+        <main class="msger-chat">
+          <div class="msg left-msg">
+            <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)">
+            </div>
+
+            <div class="msg-bubble">
+              <div class="msg-info">
+                <div class="msg-info-name">BOT</div>
+              </div>
+
+              <div class="msg-text">
+                Hi, welcome to meeting! Go ahead and send me a message. 😄
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>    
+      <div class="main__message_container input-group">
+        <input type="text" id="chat_message" class="bg-white-20 form-control msger-input" placeholder="Type message here.."
+          aria-label="Recipient's username with two button addons">
+        <!-- emoji and send button -->
+        <button class="btn btn-outline-secondary" id="msg_emoji_btn" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i
+            class="fas fa-smile"></i></button>
+        <button class="btn btn-outline-secondary msger-send-btn" id="msg_send_btn" type="button"><i
+            class="fas fa-paper-plane"></i></button>
+          
+        <!-- collapsible emoji section  -->
+        <div class="collapse" id="collapseExample">
+          <div id="msgerEmojiPicker">
+            <emoji-picker class="light"></emoji-picker>
+          </div>
+        </div>
+        <!-- end emoji section -->
+      </div>
+    </div>
+    </div>
+    </div></div>
     <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  </body>
+    <script>
+      $("#chat-toggle").click(function (e) {
+  e.preventDefault();
+  $("#wrapper").toggleClass("toggled");
+});
+    </script>
+    <script src="https://kit.fontawesome.com/d2f1016e6f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+    <!-- emojin picker -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+
+</body>
+
 </html>
