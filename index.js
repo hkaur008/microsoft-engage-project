@@ -38,7 +38,10 @@ io.on('connection', (socket) => {
     socket.on('message', (message) => {
       io.to(roomId).emit('createMessage', message , userName, userId);
     });
-   
+    
+    socket.on('waved', (userId) => {
+      io.to(roomId).emit('toggleWave', userId);
+    });
 
      
     

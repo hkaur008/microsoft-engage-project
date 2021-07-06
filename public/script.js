@@ -6,10 +6,13 @@ const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 const photoFilter = document.getElementById('photo-filter');
 const msg_send_btn = document.getElementById('msg_send_btn');
+const wave_btn = document.getElementById('wave_btn')
 emojiPicker =document.getElementsByTagName("emoji-picker")[0];
 let filter = 'none';
 myVideo.muted = true;
 
+// sounds 
+const wave_audio = new Audio('audio/wave.mp3');
 
 // messenger
 
@@ -27,7 +30,7 @@ let myId = null ;
 var peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443',
+  port: '3030',
 });
 
 let myVideoStream;
@@ -167,24 +170,15 @@ const playStop = () => {
   let enabled = myVideoStream.getVideoTracks()[0].enabled;
   if (enabled) {
     myVideoStream.getVideoTracks()[0].enabled = false;
-    // socket.emit('video', myId , myVideoStream, false);
+   
     setPlayVideo();
   } else {
     setStopVideo();
     myVideoStream.getVideoTracks()[0].enabled = true;
-    // socket.emit('video', myId, myVideoStream, true);
   }
 };
 
-// socket.on('video-toggle', (userId , myVideoStream ,state)=>{
-//   if(!state)
-//   myVideoStream.getVideoTracks()[0].enabled = false;
-//   // {document.getElementById(userId+"video").pause();
 
-//   if(state)
-//   myVideoStream.getVideoTracks()[0].enabled = true;
-//   // document.getElementById(userId+"video").play();
-// })
 
 const muteUnmute = () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled;
@@ -243,6 +237,22 @@ const stopScreenShare=()=>{
 
 }
 
+//hand-wave 
+wave_btn.addEventListener('click' , (e)=>{
+  var color = e.target.style.color;
+  if(color != "green")
+   {
+    e.target.style.color = "green";
+   }
+   else{
+    e.target.style.color = null;
+   }
+   socket.emit('waved' , myId);
+})
+
+socket.on('toggleWave' , (userId)=>{
+  wave_audio.play();
+})
 //photo filters 
 photoFilter.addEventListener('change', (e)=> {
   // Set filter to chosen option
