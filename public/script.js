@@ -30,20 +30,6 @@ var peer = new Peer(undefined, {
   port: '3030',
 });
 
-peer.on('open', (id) => {
-  nameInput(id);
-  
-});
-
-//username input
-const nameInput = (id)=> {
-  var userName = prompt('Please enter your name', 'Hargun');
-  if (userName != null) {
-    socket.emit('join-room', ROOM_ID, id , userName);
-    myId=id;
-  }
-}
-
 let myVideoStream;
 
 var getUserMedia =
@@ -58,7 +44,7 @@ navigator.mediaDevices
   })
   .then((stream) => {
     myVideoStream = stream;
-    myVideo.setAttribute("id", myId);
+    myVideo.setAttribute("id", myId+"video");
     addVideoStream(myVideo, stream);
 
     peer.on('call', (call) => {
@@ -121,7 +107,7 @@ peer.on('call', (call)=> {
     { video: true, audio: true }, (stream ) => {
       call.answer(stream); // Answer the call with an A/V stream.
       const video = document.createElement('video');
-    video.setAttribute("id", call.peer);
+    video.setAttribute("id", call.peer+"video");
       call.on('stream', (remoteStream)=> {
         addVideoStream(video, remoteStream);
       });
@@ -131,12 +117,26 @@ peer.on('call', (call)=> {
   );
 });
 
+peer.on('open', (id) => {
+  nameInput(id);
+  
+});
+
+//username input
+const nameInput = (id)=> {
+  var userName = prompt('Please enter your name', 'Hargun');
+  if (userName != null) {
+    socket.emit('join-room', ROOM_ID, id , userName);
+    myId=id;
+  }
+}
+
 
 // CHAT
 const connectToNewUser = (userId, streams) => {
   var call = peer.call(userId, streams);
   var video = document.createElement('video');
-  video.setAttribute("id", userId);
+  video.setAttribute("id", userId+"video");
 
   call.on('stream', (userVideoStream) => {
     addVideoStream(video, userVideoStream);
@@ -159,16 +159,32 @@ const addVideoStream = (videoEl, stream) => {
   }
 };
 
+
+
+// video on off 
+
 const playStop = () => {
   let enabled = myVideoStream.getVideoTracks()[0].enabled;
   if (enabled) {
     myVideoStream.getVideoTracks()[0].enabled = false;
+    // socket.emit('video', myId , myVideoStream, false);
     setPlayVideo();
   } else {
     setStopVideo();
     myVideoStream.getVideoTracks()[0].enabled = true;
+    // socket.emit('video', myId, myVideoStream, true);
   }
 };
+
+// socket.on('video-toggle', (userId , myVideoStream ,state)=>{
+//   if(!state)
+//   myVideoStream.getVideoTracks()[0].enabled = false;
+//   // {document.getElementById(userId+"video").pause();
+
+//   if(state)
+//   myVideoStream.getVideoTracks()[0].enabled = true;
+//   // document.getElementById(userId+"video").play();
+// })
 
 const muteUnmute = () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled;
@@ -279,5 +295,5 @@ function random(min, max) {
 // messenger code ends 
 
 socket.on("user-disconnected", (userId)=>{
-  document.getElementById(userId).remove();
+  document.getElementById(userId+"video").remove();
 });

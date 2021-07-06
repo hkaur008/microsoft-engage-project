@@ -38,6 +38,11 @@ io.on('connection', (socket) => {
     socket.on('message', (message) => {
       io.to(roomId).emit('createMessage', message , userName, userId);
     });
+   
+    socket.on('video', (userId ,myVideoStream, state) => {
+      io.to(roomId).emit('video-toggle', userId , myVideoStream, state);
+
+    });
      
     
   });
