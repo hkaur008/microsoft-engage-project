@@ -39,10 +39,7 @@ io.on('connection', (socket) => {
       io.to(roomId).emit('createMessage', message , userName, userId);
     });
    
-    socket.on('video', (userId ,myVideoStream, state) => {
-      io.to(roomId).emit('video-toggle', userId , myVideoStream, state);
 
-    });
      
     
   });
