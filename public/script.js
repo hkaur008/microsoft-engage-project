@@ -6,10 +6,13 @@ const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 const photoFilter = document.getElementById('photo-filter');
 const msg_send_btn = document.getElementById('msg_send_btn');
-const wave_btn = document.getElementById('wave_btn')
+const wave_btn = document.getElementById('wave_btn');
+const end_btn = document.getElementById('leave-meeting')
 emojiPicker =document.getElementsByTagName("emoji-picker")[0];
 let filter = 'none';
 myVideo.muted = true;
+const peers = {}
+
 
 // sounds 
 const wave_audio = new Audio('audio/wave.mp3');
@@ -107,12 +110,13 @@ navigator.mediaDevices
 
 peer.on('call', (call)=> {
   getUserMedia(
-    { video: true, audio: true }, (stream ) => {
+    { video: true, audio: true }, (stream) => {
       call.answer(stream); // Answer the call with an A/V stream.
       const video = document.createElement('video');
     video.setAttribute("id", call.peer+"video");
       call.on('stream', (remoteStream)=> {
         addVideoStream(video, remoteStream);
+        peers[call.peer]=call;
       });
     }, (err)=> {
       console.log('Failed to get local stream', err);
@@ -145,6 +149,7 @@ const connectToNewUser = (userId, streams) => {
     addVideoStream(video, userVideoStream);
   });
 
+  peers[userId] = call
 };
 
 const addVideoStream = (videoEl, stream) => {
@@ -304,6 +309,13 @@ function random(min, max) {
 
 // messenger code ends 
 
+end_btn.addEventListener('click' , (e)=>{
+  window.location.href = '../'
+})
+
+//disconnected user
 socket.on("user-disconnected", (userId)=>{
   document.getElementById(userId+"video").remove();
+  // if (peers[userId]) peers[userId].close()
 });
+
