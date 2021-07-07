@@ -4,6 +4,7 @@ const all_messages = document.getElementById('all_messages');
 const main__chat__window = document.getElementById('main__chat__window');
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
+const ScreenVideo = document.createElement("video");
 const photoFilter = document.getElementById('photo-filter');
 const msg_send_btn = document.getElementById('msg_send_btn');
 const wave_btn = document.getElementById('wave_btn');
@@ -11,9 +12,11 @@ const end_btn = document.getElementById('leave-meeting')
 emojiPicker =document.getElementsByTagName("emoji-picker")[0];
 let filter = 'none';
 myVideo.muted = true;
-const peers = {}
+var roomMates = new Set();
 const state = "in-meet";
 let myName;
+let myScreenStream;
+
 // sounds 
 const wave_audio = new Audio('audio/wave.mp3');
 
@@ -36,7 +39,7 @@ let myId = null ;
 var peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443',
+  port: '3030',
 });
 
 let myVideoStream;
@@ -54,11 +57,19 @@ navigator.mediaDevices
   .then((stream) => {
     myVideoStream = stream;
     myVideo.setAttribute("id", myId+"video");
+    setVideoReversed(myVideo);
     addVideoStream(myVideo, stream);
-
     peer.on('call', (call) => {
       call.answer(stream);
       const video = document.createElement('video');
+      if(call.metadata){
+        video.setAttribute("id", call.peer + 's');
+        }
+        else {
+          video.setAttribute("id", call.peer+"video");
+                setVideoReversed(video);
+        }
+        video.setAttribute("controls", "controls");
 
       call.on('stream', (userVideoStream) => {
         addVideoStream(video, userVideoStream);
@@ -68,7 +79,11 @@ navigator.mediaDevices
 
 //user connected    
     socket.on('user-connected', (userId , state) => {
-     if(state === "in-meet") connectToNewUser(userId, stream);
+     if(state === "in-meet") {
+        connectToNewUser(userId, stream);
+         roomMates.add(userId); 
+         console.log(roomMates);
+         }
      else (console.log(userId+"connected without meet"));
     });
 
@@ -103,8 +118,6 @@ navigator.mediaDevices
 
   //emoji picker 
   emojiPicker.addEventListener("emoji-click", (e) => {
-    //console.log(e.detail);
-    //console.log(e.detail.emoji.unicode);
     messageInput.value += e.detail.emoji.unicode;
   });
 
@@ -122,10 +135,17 @@ peer.on('call', (call)=> {
     { video: true, audio: true }, (stream) => {
       call.answer(stream); // Answer the call with an A/V stream.
       const video = document.createElement('video');
-    video.setAttribute("id", call.peer+"video");
-      call.on('stream', (remoteStream)=> {
+
+      if(call.metadata){
+        video.setAttribute("id", call.peer + 's');
+        }
+        else {
+          video.setAttribute("id", call.peer+"video");
+        }
+    video.setAttribute("controls", "controls");
+    call.on('stream', (remoteStream)=> {
         addVideoStream(video, remoteStream);
-        peers[call.peer]=call;
+        roomMates.add(call.peer); 
       });
     }, (err)=> {
       console.log('Failed to get local stream', err);
@@ -189,13 +209,18 @@ function appendBeforeMessage(name, img, side, text, date) {
 const connectToNewUser = (userId, streams) => {
   var call = peer.call(userId, streams);
   var video = document.createElement('video');
-  video.setAttribute("id", userId+"video");
-
+  video.setAttribute("controls", "controls");
+  
+  if(call.metadata){
+    video.setAttribute("id", userId + 's');
+    }
+    else {
+      video.setAttribute("id", userId+"video");
+    }
   call.on('stream', (userVideoStream) => {
     addVideoStream(video, userVideoStream);
   });
 
-  peers[userId] = call
 };
 
 const addVideoStream = (videoEl, stream) => {
@@ -261,31 +286,46 @@ const setMuteButton = () => {
 };
 
 const shareScreen =()=> {
-  navigator.mediaDevices.getDisplayMedia({
-    video: {
-      cursor: 'always'
-    },
-    audio: {
-      echoCancellation: true,
-      noiseSuppression: true
-    }
-  }).then(stream => {
-      const screenTrack = stream;
-      const myScreen = document.createElement('video');
-      addVideoStream(myScreen, screenTrack );
-
-      screenTrack.onended = ()=> {
-          stopScreenShare();
-      }
-   }, (err)=> {
-    console.log('Failed to get screen sharing', err);
+  if(!myScreenStream){
+    console.log('ajdfbjshdfbhjdsfbjhsfd');
+   
+    navigator.mediaDevices.getDisplayMedia().then(stream => {
+      myScreenStream = stream;
+      ScreenVideo.setAttribute("controls", "controls");
+      ScreenVideo.setAttribute("id", myId+ 's');
+      addVideoStream(ScreenVideo, stream);
+      ScreenVideo.setAttribute("style", "display:normal");
+      roomMates.forEach(users => {
+        peer.call(users, stream, {
+          metadata: { "type": "shareScreen" }
+      });
+      });    
+      myScreenStream.getVideoTracks()[0].addEventListener('ended', () => 
+      {    socket.emit("screen-closed",myId+'s'); // isScreenshot should be added s
+      myScreenStream.getVideoTracks()[0].enabled = false;
+      ScreenVideo.setAttribute("style", "display:none");
+      myScreenStream = undefined;
+        }
+);
+    })
   }
-   )
+
+  else {
+    myScreenStream.getVideoTracks()[0].enabled = false;
+    ScreenVideo.setAttribute("style", "display:none");
+    myScreenStream = undefined;
+    socket.emit("screen-closed",myId+'s'); // isScreenshot should be added s
+  }
 }
 
-const stopScreenShare=()=>{
 
-}
+// remove screen emission
+socket.on('remove-screen',(screenId)=>{
+  if(screenId && document.getElementById(screenId))
+  document.getElementById(screenId).remove();
+})
+
+
 
 //hand-wave 
 wave_btn.addEventListener('click' , (e)=>{
@@ -359,9 +399,16 @@ end_btn.addEventListener('click' , (e)=>{
   window.location.href = '../'
 })
 
+
+
 //disconnected user
 socket.on("user-disconnected", (userId)=>{
-if(document.getElementById(userId+"video"))document.getElementById(userId+"video").remove();
+if(userId && document.getElementById(userId+"video"))
+document.getElementById(userId+"video").remove();
   // if (peers[userId]) peers[userId].close()
 });
 
+// to reverse video for lateral inversion
+const setVideoReversed =(element)=> {
+  element.setAttribute("style", "transform: rotateY(180deg); -webkit-transform: rotateY(180deg); -moz-transform: rotateY(180deg);");
+}

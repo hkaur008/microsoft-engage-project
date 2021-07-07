@@ -32,20 +32,24 @@ io.on('connection', (socket) => {
   socket.on('join-room', (roomId, userId ,userName,state) => {
     socket.join(roomId);
     socket.broadcast.to(roomId).emit('user-connected', userId , state);
-     
+      
     socket.on('message', (message) => {
       io.to(roomId).emit('createMessage', message , userName, userId);
     });
     
     if(state ==="in-meet")
-    {
-      socket.on("disconnect", (reason)=>{
+    {   socket.on("disconnect", (reason)=>{
         socket.broadcast.emit("user-disconnected", userId ); 
     });
-
+     
       socket.on('waved', (userId) => {
       io.to(roomId).emit('toggleWave', userId);
     });
+
+    socket.on('screen-closed', (screenId) => {
+      io.to(roomId).emit('remove-screen', screenId);
+    });
+
   }
   
   });
