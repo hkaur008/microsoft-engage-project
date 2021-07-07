@@ -13,16 +13,19 @@ let filter = 'none';
 myVideo.muted = true;
 const peers = {}
 const state = "in-meet";
-
+let myName;
 // sounds 
 const wave_audio = new Audio('audio/wave.mp3');
 
 // messenger
-
+let messageStatus = 0;
 const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
 
+
+//firebase references
+var messagesRef =firebase.database().ref(ROOM_ID).child("messages")
 
 // Icons made by Freepik from www.flaticon.com
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
@@ -33,7 +36,7 @@ let myId = null ;
 var peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443',
+  port: '3030',
 });
 
 let myVideoStream;
@@ -65,8 +68,7 @@ navigator.mediaDevices
 
 //user connected    
     socket.on('user-connected', (userId , state) => {
-     
-     if(state == "in-meet") connectToNewUser(userId, stream);
+     if(state === "in-meet") connectToNewUser(userId, stream);
      else (console.log(userId+"connected without meet"));
     });
 
@@ -92,7 +94,11 @@ navigator.mediaDevices
   // send message 
   const sendMessage = (msg) => {
       socket.emit('message', msg);
-      
+      messagesRef.push().set({
+        "sender": myName,
+        "message": msg,
+        "createdAt": formatDate(new Date())
+    });
   }
 
   //emoji picker 
@@ -134,11 +140,48 @@ peer.on('open', (id) => {
 
 //username input
 const nameInput = (id)=> {
-  var userName = prompt('Please enter your name', 'Hargun');
-  if (userName != null) {
-    socket.emit('join-room', ROOM_ID, id , userName , state);
+  myName = prompt('Please enter your name', 'Hargun');
+  if (myName != null) {
+     messagesRef.on('value', (snapshot) => {
+      if(!messageStatus){
+      snapshot.forEach( (element )=>{
+          if(element.val().sender===myName)
+        appendBeforeMessage(element.val().sender,PERSON_IMG,"right",element.val().message,element.val().createdAt)
+        else{
+        appendBeforeMessage(element.val().sender,PERSON_IMG,"left",element.val().message,element.val().createdAt)
+        }
+      })
+    }
+      messageStatus = 1;
+    });
+    
+    socket.emit('join-room', ROOM_ID, id , myName , state);
     myId=id;
   }
+
+}
+
+
+// messenger code starts
+
+function appendBeforeMessage(name, img, side, text, date) {  
+  const msgHTML = `
+    <div class="msg ${side}-msg">
+      <div class="msg-img" style="background-image: url(${img})"></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">${name}</div>
+          <div class="msg-info-time">${date}</div>
+        </div>
+
+        <div class="msg-text">${text}</div>
+      </div>
+    </div>
+  `;
+
+  msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+  msgerChat.scrollTop += 500;
 }
 
 
@@ -173,7 +216,6 @@ const addVideoStream = (videoEl, stream) => {
 
 
 // video on off 
-
 const playStop = () => {
   let enabled = myVideoStream.getVideoTracks()[0].enabled;
   if (enabled) {
@@ -231,7 +273,7 @@ const shareScreen =()=> {
       const screenTrack = stream;
       const myScreen = document.createElement('video');
       addVideoStream(myScreen, screenTrack );
-      
+
       screenTrack.onended = ()=> {
           stopScreenShare();
       }

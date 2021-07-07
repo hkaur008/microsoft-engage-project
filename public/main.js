@@ -10,7 +10,6 @@ const state = "out-meet";
 const peers = {}
 let myName;
 // messenger
-
 let messageStatus = 0;
 const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
@@ -27,7 +26,7 @@ let myId = null ;
 var peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443',
+  port: '3030',
 });
 
 
@@ -91,10 +90,8 @@ const nameInput = (id)=> {
    myName = prompt('Please enter your name', 'Hargun');
   if (myName != null) {
      
-    
      messagesRef.on('value', (snapshot) => {
       snapshot.forEach( (element )=>{
-        
         if(!messageStatus){
           if(element.val().sender===myName)
         appendBeforeMessage(element.val().sender,PERSON_IMG,"right",element.val().message,element.val().createdAt)
