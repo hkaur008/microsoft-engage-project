@@ -119,18 +119,20 @@
     
   </div>
   </div>
-  <script src="main.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+ <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+ <script src="fire_chat.js"></script>
+ <script src="main.js"></script>
   <script>
     $("#chat-toggle").click(function (e) {
       e.preventDefault();
       var flag = 0;
       if (document.getElementsByClassName("toggled").length === 0) {
-        console.log("i worked outside");
         $("#wrapper").toggleClass("toggled");
         flag = 1;
       }
       if (document.getElementById("chatbar-wrapper").style.display === "none" || document.getElementById("chatbar-wrapper").style.display === "") {
-        console.log("i worked inside");
         document.getElementById("chatbar-wrapper").style.display = "block";
         document.getElementById("participants-wrapper").style.display = "none";
       }

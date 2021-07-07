@@ -92,6 +92,7 @@ navigator.mediaDevices
   // send message 
   const sendMessage = (msg) => {
       socket.emit('message', msg);
+      
   }
 
   //emoji picker 
