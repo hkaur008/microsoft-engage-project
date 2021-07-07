@@ -361,7 +361,7 @@ end_btn.addEventListener('click' , (e)=>{
 
 //disconnected user
 socket.on("user-disconnected", (userId)=>{
-  document.getElementById(userId+"video").remove();
+if(document.getElementById(userId+"video"))document.getElementById(userId+"video").remove();
   // if (peers[userId]) peers[userId].close()
 });
 
