@@ -15,12 +15,13 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use('/peerjs', peerServer);
 
-app.get( '/', (req, res) => {
-  res.send(`main`);
-});
 
 app.get( '/teams-webrtc', (req, res) => {
   res.redirect(`/${uuidv4()}`);
+});
+
+app.get( '/main+:room', (req, res) => {
+  res.render('main',{ roomId: req.params.room });
 });
 
 app.get( '/:room', (req, res) => {
@@ -28,23 +29,25 @@ app.get( '/:room', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  socket.on('join-room', (roomId, userId ,userName) => {
+  socket.on('join-room', (roomId, userId ,userName,state) => {
     socket.join(roomId);
-    socket.broadcast.to(roomId).emit('user-connected', userId);
+    socket.broadcast.to(roomId).emit('user-connected', userId , state);
      
-    socket.on("disconnect", (reason)=>{
-      socket.broadcast.emit("user-disconnected", userId); 
-  });
     socket.on('message', (message) => {
       io.to(roomId).emit('createMessage', message , userName, userId);
     });
     
-    socket.on('waved', (userId) => {
-      io.to(roomId).emit('toggleWave', userId);
+    if(state ==="in-meet")
+    {
+      socket.on("disconnect", (reason)=>{
+        socket.broadcast.emit("user-disconnected", userId ); 
     });
 
-     
-    
+      socket.on('waved', (userId) => {
+      io.to(roomId).emit('toggleWave', userId);
+    });
+  }
+  
   });
 });
 

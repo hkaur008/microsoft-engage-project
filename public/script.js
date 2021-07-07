@@ -12,7 +12,7 @@ emojiPicker =document.getElementsByTagName("emoji-picker")[0];
 let filter = 'none';
 myVideo.muted = true;
 const peers = {}
-
+const state = "in-meet";
 
 // sounds 
 const wave_audio = new Audio('audio/wave.mp3');
@@ -64,8 +64,10 @@ navigator.mediaDevices
 
 
 //user connected    
-    socket.on('user-connected', (userId) => {
-      connectToNewUser(userId, stream);
+    socket.on('user-connected', (userId , state) => {
+     
+     if(state == "in-meet") connectToNewUser(userId, stream);
+     else (console.log(userId+"connected without meet"));
     });
 
   
@@ -133,7 +135,7 @@ peer.on('open', (id) => {
 const nameInput = (id)=> {
   var userName = prompt('Please enter your name', 'Hargun');
   if (userName != null) {
-    socket.emit('join-room', ROOM_ID, id , userName);
+    socket.emit('join-room', ROOM_ID, id , userName , state);
     myId=id;
   }
 }
@@ -257,6 +259,7 @@ wave_btn.addEventListener('click' , (e)=>{
 
 socket.on('toggleWave' , (userId)=>{
   wave_audio.play();
+  console.log(userId+ " waved");
 })
 //photo filters 
 photoFilter.addEventListener('change', (e)=> {
