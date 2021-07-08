@@ -26,7 +26,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use('/peerjs', peerServer);
 
-app.get( '/home', (req, res) => {
+app.get( '/', (req, res) => {
   res.render('homepage');
 });
 
