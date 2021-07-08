@@ -213,7 +213,12 @@ userRoomsRef.on('value', (snapshot) => {
 
 join_meet.addEventListener('click',(event)=>{
   event.preventDefault();
+  if((ROOM_ID+"").toLowerCase!=myName.toLowerCase)
   window.open(`${window.location.origin}/${ROOM_ID}`);
+  else{
+    window.open(`${window.location.origin}/teams-webrtc`);
+
+  }
 })
 
 var dataJSON;

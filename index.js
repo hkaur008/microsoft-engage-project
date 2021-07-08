@@ -26,6 +26,9 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use('/peerjs', peerServer);
 
+app.get( '/home', (req, res) => {
+  res.render('homepage');
+});
 
 app.get( '/teams-webrtc', (req, res) => {
   res.redirect(`/${uuidv4()}`);
@@ -45,7 +48,7 @@ io.on('connection', (socket) => {
     socket.broadcast.to(roomId).emit('user-connected', userId , state);
           
     var userRooms= admin.database().ref(`users/${userName}/rooms/${roomId}`);
-    if(roomId!=userName.toLowerCase())
+    if(roomId.toLowerCase()!=userName.toLowerCase())
     userRooms.push().set({
      "name": roomId
   });  

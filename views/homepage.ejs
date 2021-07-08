@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microsoft Teams</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon-9e2b8f1.ico?v=2" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="homepage.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.3.1/peerjs.min.js.map"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  
+<!-- particles.js container -->
+<div id="particles-js"></div>
+
+<div class="card">
+    <div class="card-headers bg-primary"> GET PROFILE !</div>
+    <div class="card-content">
+        <input id="usernameInput" type="text" placeholder="User Name"  required>
+        <button class="button btn btn-secondary"onclick="profile()">USER PROFILE </button>
+    </div></div>
+
+  <div class="card">
+    <div class="card-headers bg-danger">VIDEO CALL !</div>
+    <div class="card-content">
+            <input id="joinroomInput" type="text" placeholder="Enter Room Id" autocomplete="off" required>
+            <button class="button btn btn-danger" onclick="joinRoom()">JOIN ROOM</button>
+        
+        <input id="newroomInput" type="text" placeholder="User Name" autocomplete="off" required>
+        <button class="button button btn btn-success" onclick="newRoom()">CREATE ROOM</button>
+
+    </div></div>
+
+ 
+<!-- particles.js lib (JavaScript CodePen settings): https://github.com/VincentGarreau/particles.js -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+ <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+ <script src="fire_chat.js"></script>
+ <script src="homepage.js"></script>
+  <script>
+
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+  </script>
+  <script src="https://kit.fontawesome.com/d2f1016e6f.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <!-- emojin picker -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+
+</body>
+
+</html>
