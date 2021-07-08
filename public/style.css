@@ -12,6 +12,13 @@ body {
   font-size: 14px;
   line-height: 1.4286;
 }
+#info {
+  color:white;
+  position: absolute;
+  top:0;
+  right:0;
+  background-color: grey;
+}
 #video-grid {
   display: flex;
   justify-content: center;
@@ -135,6 +142,9 @@ input#chat_message {
   --border: 2px solid #ddd;
   --left-msg-bg: #ececec;
   --right-msg-bg: #579ffb;
+    /* whiteboard resize */
+    --wb-width: 800px;
+    --wb-height: 600px;
 }
 
 .msger {

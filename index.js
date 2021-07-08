@@ -73,6 +73,16 @@ io.on('connection', (socket) => {
       socket.on('waved', (myName) => {
       io.to(roomId).emit('toggleWave', myName);
     });
+    
+    
+     /**
+   * Whiteboard actions for all user in the same room
+   */
+  socket.on("wb", (config) => {
+    io.to(roomId).emit("wb", config);
+  });
+
+
 
     socket.on('screen-closed', (screenId) => {
       io.to(roomId).emit('remove-screen', screenId);

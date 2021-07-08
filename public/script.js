@@ -11,6 +11,8 @@ const wave_btn = document.getElementById('wave_btn');
 const end_btn = document.getElementById('leave-meeting')
 emojiPicker =document.getElementsByTagName("emoji-picker")[0];
 const participants = document.getElementById("participants_list");
+const recordStreamBtn = document.getElementById("recordStreamBtn");
+
 let filter = 'none';
 myVideo.muted = true;
 var roomMates = new Set();
@@ -20,6 +22,8 @@ let myScreenStream;
 
 // sounds 
 const wave_audio = new Audio('audio/wave.mp3');
+const screen_record_start = new Audio('audio/recStart.mp3');
+const screen_record_stop = new Audio('audio/recStop.mp3');
 
 // messenger
 let messageStatus = 0;
@@ -435,3 +439,167 @@ currentParticipantsRef.on('value', (snapshot) => {
       }
   })
 });
+
+
+
+/**
+ * Start - Stop Stream recording
+ */
+let isStreamRecording = false;
+desktopStream = myVideoStream;
+  recordStreamBtn.addEventListener("click", (e) => {
+
+    if (isStreamRecording) {
+      screen_record_stop.play();
+      stopStreamRecording();
+    } else {
+      screen_record_stop.play();
+      startStreamRecording();
+    }
+  });
+
+function startStreamRecording() {
+  recordedBlobs = [];
+  let options = { mimeType: "video/webm;codecs=vp9,opus" };
+  if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+    console.error(`${options.mimeType} is not supported`);
+    options = { mimeType: "video/webm;codecs=vp8,opus" };
+    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+      console.error(`${options.mimeType} is not supported`);
+      options = { mimeType: "video/webm" };
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        console.error(`${options.mimeType} is not supported`);
+        options = { mimeType: "" };
+      }
+    }
+  }
+
+  try {
+    // record only my local Media Stream
+    mediaRecorder = new MediaRecorder(myVideoStream, options);
+  } catch (err) {
+    console.error("Exception while creating MediaRecorder:", err);
+    alert("error", "Can't start stream recording: " + err);
+    return;
+  }
+
+  console.log("Created MediaRecorder", mediaRecorder, "with options", options);
+  mediaRecorder.onstop = (event) => {
+    console.log("MediaRecorder stopped: ", event);
+    console.log("MediaRecorder Blobs: ", recordedBlobs);
+    document.getElementById("info").innerHTML = "";
+    downloadRecordedStream();
+  };
+
+  mediaRecorder.ondataavailable = handleDataAvailable;
+  mediaRecorder.start();
+  console.log("MediaRecorder started", mediaRecorder);
+  isStreamRecording = true;
+  recordStreamBtn.style.setProperty("background-color", "red");
+  startRecordingTime();
+}
+
+/**
+ * Stop recording
+ */
+function stopStreamRecording() {
+  mediaRecorder.stop();
+  isStreamRecording = false;
+  setRecordButtonUi();
+}
+
+
+/**
+ * recordind stream data
+ * @param {*} event
+ */
+function handleDataAvailable(event) {
+  console.log("handleDataAvailable", event);
+  if (event.data && event.data.size > 0) {
+    recordedBlobs.push(event.data);
+  }
+}
+
+/**
+ * Download recorded stream
+ */
+function downloadRecordedStream() {
+  try {
+    const blob = new Blob(recordedBlobs, { type: "video/webm" });
+    const recFileName = getDataTimeString() + "-REC.webm";
+    const blobFileSize = bytesToSize(blob.size);
+
+    alert(
+      ` Recording Info 
+        FILE: ${recFileName} 
+        SIZE: ${blobFileSize} 
+        Please wait to be processed, then will be downloaded to your  device.
+     `
+    );
+
+    // save the recorded file to device
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = recFileName;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 100);
+  } catch (err) {
+    alert("Recording save failed: " + err);
+  }
+}
+
+
+
+
+/**
+ * Start recording time
+ */
+ function startRecordingTime() {
+  recStartTime = Date.now();
+  let rc = setInterval(function printTime() {
+    if (isStreamRecording) {
+      recElapsedTime = Date.now() - recStartTime;
+     document.getElementById("info").innerHTML =
+        myName + "&nbsp;&nbsp; 🔴 REC " + getTimeToString(recElapsedTime);
+      return;
+    }
+    clearInterval(rc);
+  }, 1000);
+}
+
+function getTimeToString(time) {
+  let diffInHrs = time / 3600000;
+  let hh = Math.floor(diffInHrs);
+  let diffInMin = (diffInHrs - hh) * 60;
+  let mm = Math.floor(diffInMin);
+  let diffInSec = (diffInMin - mm) * 60;
+  let ss = Math.floor(diffInSec);
+  let formattedHH = hh.toString().padStart(2, "0");
+  let formattedMM = mm.toString().padStart(2, "0");
+  let formattedSS = ss.toString().padStart(2, "0");
+  return `${formattedHH}:${formattedMM}:${formattedSS}`;
+}
+
+function setRecordButtonUi() {
+    recordStreamBtn.style.setProperty("background-color", "transparent");
+}
+
+function getDataTimeString() {
+  const d = new Date();
+  const date = d.toISOString().split("T")[0];
+  const time = d.toTimeString().split(" ")[0];
+  return `${date}-${time}`;
+}
+
+function bytesToSize(bytes) {
+  let sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+  if (bytes == 0) return "0 Byte";
+  let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+  return Math.round(bytes / Math.pow(1024, i), 2) + " " + sizes[i];
+}
