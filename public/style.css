@@ -315,3 +315,6 @@ input#chat_message {
       display: flex;
       flex-direction: column
   }
+  .white{
+color:white;
+  }

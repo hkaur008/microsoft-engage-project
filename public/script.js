@@ -10,6 +10,7 @@ const msg_send_btn = document.getElementById('msg_send_btn');
 const wave_btn = document.getElementById('wave_btn');
 const end_btn = document.getElementById('leave-meeting')
 emojiPicker =document.getElementsByTagName("emoji-picker")[0];
+const participants = document.getElementById("participants_list");
 let filter = 'none';
 myVideo.muted = true;
 var roomMates = new Set();
@@ -338,12 +339,17 @@ wave_btn.addEventListener('click' , (e)=>{
    else{
     e.target.style.color = null;
    }
-   socket.emit('waved' , myId);
+   socket.emit('waved' , myName);
 })
 
-socket.on('toggleWave' , (userId)=>{
+socket.on('toggleWave' , (userName)=>{
   wave_audio.play();
-  console.log(userId+ " waved");
+  console.log(userName);
+  if(userName &&document.getElementById(userName+"wave")&& (document.getElementById(userName+"wave").style.color===""||document.getElementById(userName+"wave").style.color==="white"))
+  document.getElementById(userName+"wave").style.color="black"; 
+  else if(userName && document.getElementById(userName+"wave") && document.getElementById(userName+"wave").style.color==="black")
+  document.getElementById(userName+"wave").style.color="white"; 
+   
 })
 //photo filters 
 photoFilter.addEventListener('change', (e)=> {
@@ -403,10 +409,12 @@ end_btn.addEventListener('click' , (e)=>{
 
 
 //disconnected user
-socket.on("user-disconnected", (userId)=>{
+socket.on("user-disconnected", (userId ,userName)=>{
 if(userId && document.getElementById(userId+"video"))
 document.getElementById(userId+"video").remove();
   // if (peers[userId]) peers[userId].close()
+  if(userName && document.getElementById(userName+"participant"))
+  document.getElementById(userName+"participant").remove();  
 });
 
 // to reverse video for lateral inversion
@@ -420,8 +428,10 @@ const setVideoReversed =(element)=> {
 currentParticipantsRef.on('value', (snapshot) => {
   var inpart ="";
   snapshot.forEach( (element )=>{
-     inpart =inpart +`<div id ="${element.key}participant" >${element.key}    <i class="fas fa-hand-paper " id="${element.key}wave"></i></div>`
+    if(!document.getElementById(`${element.key}participant`))
+    { inpart =`<div id ="${element.key}participant" >${element.key}    <i class="fas fa-hand-paper white " id="${element.key}wave"></i></div>`
     console.log(element.key);
+      participants.insertAdjacentHTML("beforeend",inpart);
+      }
   })
-  document.getElementById("participants_list").innerHTML=inpart;
 });

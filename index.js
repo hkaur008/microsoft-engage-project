@@ -52,10 +52,8 @@ io.on('connection', (socket) => {
     { 
       // firebase code
       var meetParticipantsRef =admin.database().ref(roomId).child("meetParticipants").child(userName);
-      meetParticipantsRef.push().set({
-        "tempo_id": userId,
-        "arrival-time": (new Date()).getTime()
-    });
+      var arrival_time = (new Date()).getTime();
+  
       
     var currentParticipants= admin.database().ref(`${roomId}/currentParticipants/${userName}`);
     currentParticipants.push().set({
@@ -65,14 +63,15 @@ io.on('connection', (socket) => {
       socket.on("disconnect", (reason)=>{
         meetParticipantsRef.push().set({
           "tempo_id": userId,
+          "arrival-time": arrival_time,
           "disconnected-time": (new Date()).getTime()
       });
-        socket.broadcast.emit("user-disconnected", userId ); 
+        socket.broadcast.emit("user-disconnected", userId , userName ); 
         admin.database().ref(`${roomId}/currentParticipants/${userName}`).remove();
     });
      
-      socket.on('waved', (userId) => {
-      io.to(roomId).emit('toggleWave', userId);
+      socket.on('waved', (myName) => {
+      io.to(roomId).emit('toggleWave', myName);
     });
 
     socket.on('screen-closed', (screenId) => {
