@@ -418,7 +418,7 @@ function random(min, max) {
 // messenger code ends 
 
 end_btn.addEventListener('click' , (e)=>{
-  window.location.href = '../'
+  window.location.href=(`${window.location.origin}/main${ROOM_ID}`);
 })
 
 
