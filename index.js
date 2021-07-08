@@ -45,9 +45,11 @@ io.on('connection', (socket) => {
     socket.broadcast.to(roomId).emit('user-connected', userId , state);
           
     var userRooms= admin.database().ref(`users/${userName}/rooms/${roomId}`);
+    if(roomId!=userName.toLowerCase())
     userRooms.push().set({
      "name": roomId
   });  
+  
     socket.on('message', (message) => {
       io.to(roomId).emit('createMessage', message , userName, userId);
     });
@@ -67,8 +69,8 @@ io.on('connection', (socket) => {
       socket.on("disconnect", (reason)=>{
         meetParticipantsRef.push().set({
           "tempo_id": userId,
-          "arrival-time": arrival_time,
-          "disconnected-time": (new Date()).getTime()
+          "arrival_time": arrival_time,
+          "disconnected_time": (new Date()).getTime()
       });
         socket.broadcast.emit("user-disconnected", userId , userName ); 
         admin.database().ref(`${roomId}/currentParticipants/${userName}`).remove();

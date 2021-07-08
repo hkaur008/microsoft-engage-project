@@ -5,6 +5,7 @@ const main__chat__window = document.getElementById('main__chat__window');
 const photoFilter = document.getElementById('photo-filter');
 const msg_send_btn = document.getElementById('msg_send_btn');
 const members = document.getElementById("participants_list");
+const reportGenerate = document.getElementById('generate_report');
 const userRooms = document.getElementsByClassName("chat_list")[0];
 emojiPicker =document.getElementsByTagName("emoji-picker")[0];
 // join meeting
@@ -215,4 +216,91 @@ join_meet.addEventListener('click',(event)=>{
   window.open(`${window.location.origin}/${ROOM_ID}`);
 })
 
+var dataJSON;
+var jsonDL;
 
+
+
+reportGenerate.addEventListener('click', ()=>{
+// all meeting participants code ends 
+var recordHTML = start_template;
+meetParticipantsRef.on('value', (snapshot) => {
+  var inpart ="";
+    snapshot.forEach((element)=>{
+      recordHTML = recordHTML + ` <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+      <h2 class="accordion-header" id="heading${element.key}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${element.key}" aria-expanded="false" aria-controls="collapse${element.key}">
+        ${element.key}</button></h2>
+           <div id="collapse${element.key}" class="accordion-collapse collapse" aria-labelledby="heading${element.key}" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+<div><table class="table">
+<thead><tr><th scope="col"> Arrived at </th><th> Departed at </th></tr>
+</thead>
+<tbody>`;
+       
+      var record = [];
+      element.forEach((el)=>{
+        element.forEach((x)=>{
+        
+          recordHTML = recordHTML + `<tr>
+          <td>${new Date(x.val().arrival_time).toLocaleString()}</td>
+          <td>${ new Date(x.val().disconnected_time).toLocaleString()}</td>
+          </tr>`
+
+        })
+      })
+      recordHTML = recordHTML + `</tbody></table></div>
+      </div>   
+      </div></div></div>      
+      `
+
+    })
+    
+});
+
+recordHTML = recordHTML + `
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
+`;
+download( `${ROOM_ID}_${new Date().toLocaleString()}.html`,recordHTML);
+
+})
+
+
+
+
+
+
+
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+// boilerplates for download template 
+
+var start_template = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Record</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>    
+<div class ="container">
+    <div class="bg-dark text-light p-4">List of partcipants</div>
+   `
