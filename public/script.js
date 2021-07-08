@@ -238,8 +238,8 @@ const addVideoStream = (videoEl, stream) => {
   let totalUsers = document.getElementsByTagName('video').length;
   if (totalUsers > 1) {
     for (let index = 0; index < totalUsers; index++) {
-      document.getElementsByTagName('video')[index].style.width =
-        100 / totalUsers + '%';
+      document.getElementsByTagName('video')[index].style.width = (window.innerWidth*0.8 / Math.sqrt(totalUsers))+"px" ;
+      document.getElementsByTagName('video')[index].style.height = (window.innerHeight*0.8 /Math.sqrt(totalUsers)) +"px"  ;
     }
   }
 };
@@ -329,6 +329,13 @@ const shareScreen =()=> {
 socket.on('remove-screen',(screenId)=>{
   if(screenId && document.getElementById(screenId))
   document.getElementById(screenId).remove();
+  let totalUsers = document.getElementsByTagName('video').length;
+  if (totalUsers > 1) {
+    for (let index = 0; index < totalUsers; index++) {
+      document.getElementsByTagName('video')[index].style.width = (window.innerWidth*0.8 / Math.sqrt(totalUsers))+"px" ;
+      document.getElementsByTagName('video')[index].style.height = (window.innerHeight*0.8 /Math.sqrt(totalUsers)) +"px"  ;
+    }
+  }
 })
 
 
@@ -361,9 +368,13 @@ photoFilter.addEventListener('change', (e)=> {
   filter = e.target.value;
   // Set filter to video
   myVideo.style.filter = filter;
+  socket.emit('change-filter', myId+"video",filter);
   e.preventDefault(); 
 });
 
+socket.on('change-filter',(videoId,filter)=>{
+  document.getElementById(videoId).style.filter = filter;
+})
 
 // messenger code starts
 
@@ -603,3 +614,5 @@ function bytesToSize(bytes) {
   let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
   return Math.round(bytes / Math.pow(1024, i), 2) + " " + sizes[i];
 }
+
+

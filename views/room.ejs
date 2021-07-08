@@ -62,13 +62,13 @@
         <!-- toolbar -->
         <div class="main__controls">
           <div class="main__controls_block">
-            <div class="main__controls_button" id="muteButton" onclick="muteUnmute()">
+            <div class="main__controls_button" id="muteButton" onclick="muteUnmute()" data-toggle="tooltip"  title="Audio">
               <abbr title="Audio"><i class="fas fa-microphone"></i></abbr>
             </div>
-            <div class="main__controls_button" id="playPauseVideo" onclick="playStop()">
+            <div class="main__controls_button" id="playPauseVideo" onclick="playStop()" data-toggle="tooltip"  title="Video">
               <i class="fas fa-video"></i>
             </div>
-            <div class="main__controls_button ">
+            <div class="main__controls_button  " data-toggle="tooltip"  title="Photo Filters">
               <abbr title="Video Filters"><select id="photo-filter" class="select">
                   <option value="none">Normal</option>
                   <option value="grayscale(100%)">Grayscale</option>
@@ -82,28 +82,28 @@
           </div>
 
           <div class="main__controls_block">
-            <div class="main__controls_button" id="shareScreen" onclick="shareScreen()">
+            <div class="main__controls_button" id="shareScreen" onclick="shareScreen()" data-toggle="tooltip"  title="Screen Share">
               <i class="fas fa-desktop"></i>
             </div>
-            <div class="main__controls_button" id="wave_btn">
+            <div class="main__controls_button" id="wave_btn" data-toggle="tooltip"  title="Hand Raise">
               <i class="fas fa-hand-paper"></i>
             </div>
-            <div class="main__controls_button" id="recordStreamBtn">
+            <div class="main__controls_button" id="recordStreamBtn"  data-toggle="tooltip"  title="Record">
               <i class="fas fa-record-vinyl"></i>
             </div>
 
 
             <!-- switch btw participant and chat panel  -->
-            <div class="main__controls_button" id="participants-toggle">
+            <div class="main__controls_button" id="participants-toggle"  data-toggle="tooltip"  title="Participants">
               <i class="fas fa-users"></i>
                
             </div>
 
-            <div class="main__controls_button" id="chat-toggle">
+            <div class="main__controls_button" id="chat-toggle"  data-toggle="tooltip"  title="Chat">
               <i class="fas fa-comment"></i>
             </div>
 
-            <div class="main__controls_button" id="whiteboardBtn">
+            <div class="main__controls_button" id="whiteboardBtn"  data-toggle="tooltip"  title="Whiteboard">
               <i class="fas fa-chalkboard-teacher"></i>
             </div>
        
@@ -114,8 +114,8 @@
           </div>
 
           <div class="main__controls_block">
-            <div class="main__controls_button leaveMeeting" id="leave-meeting">
-              <i class="fas fa-times" data-bs-toggle="tooltip" data-bs-placement="top" title="Hang Up"></i>
+            <div class="main__controls_button leaveMeeting" id="leave-meeting" data-toggle="tooltip"  title="Hang Up">
+              <i class="fas fa-times" ></i>
             </div>
           </div>
         </div>
@@ -191,6 +191,9 @@
   <script src="script.js"></script>
   <script src="whiteboard.js"></script>
   <script>
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
     $("#chat-toggle").click(function (e) {
       e.preventDefault();
       var flag = 0;

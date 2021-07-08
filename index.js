@@ -79,6 +79,10 @@ io.on('connection', (socket) => {
       socket.on('waved', (myName) => {
       io.to(roomId).emit('toggleWave', myName);
     });
+
+    socket.on('change-filter', (videoId,filter) => {
+      io.to(roomId).emit('change-filter', videoId,filter);
+    });
     
     
      /**
