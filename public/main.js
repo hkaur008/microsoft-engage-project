@@ -4,8 +4,12 @@ const all_messages = document.getElementById('all_messages');
 const main__chat__window = document.getElementById('main__chat__window');
 const photoFilter = document.getElementById('photo-filter');
 const msg_send_btn = document.getElementById('msg_send_btn');
-
+const members = document.getElementById("participants_list");
+const userRooms = document.getElementsByClassName("chat_list")[0];
 emojiPicker =document.getElementsByTagName("emoji-picker")[0];
+// join meeting
+const join_meet = document.getElementById("join-meet");
+
 const state = "out-meet";
 const peers = {}
 let myName;
@@ -17,6 +21,7 @@ const msgerChat = get(".msger-chat");
 
 //firebase references
 var messagesRef =firebase.database().ref(ROOM_ID).child("messages")
+var meetParticipantsRef =firebase.database().ref(ROOM_ID).child("meetParticipants")
 
 // Icons made by Freepik from www.flaticon.com
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
@@ -173,7 +178,41 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-// messenger code ends 
+// all meeting participants code ends 
+meetParticipantsRef.on('value', (snapshot) => {
+  var inpart ="";
+  snapshot.forEach( (element )=>{
+    if(!document.getElementById(`${element.key}member`))
+    { inpart =`<div id ="${element.key}member" >${element.key}</div>`
+      members.insertAdjacentHTML("beforeend",inpart);
+      }
+  })
+});
+let counter=0;
+// all meeting participants code ends 
+var userRoomsRef =firebase.database().ref("users")
+userRoomsRef.on('value', (snapshot) => {
+  var inpart ="";
+  // if(snapshot.key === myName)
+    snapshot.forEach((snap)=>{
+      if(snap.key===myName)
+      {
+       snap.child("rooms").forEach( (element )=>{
+    if(!document.getElementById(`${element.key}room`))
+    { counter++;
+      console.log(element.key);
+      inpart =`<div id ="${element.key}room" class="border" ><h5>Meeting ${counter}</h5><a href="${window.location.origin}/main${element.key}">${element.key}</a></div>`
+      userRooms.insertAdjacentHTML("beforeend",inpart);
+      }
+  })
+      }
+    })
+  
+});
 
+join_meet.addEventListener('click',(event)=>{
+  event.preventDefault();
+  window.open(`${window.location.origin}/${ROOM_ID}`);
+})
 
 

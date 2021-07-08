@@ -218,6 +218,7 @@ input#chat_message {
 
 .left-msg .msg-bubble {
   border-bottom-left-radius: 0;
+  word-break: break-all;
 }
 
 .right-msg {
@@ -227,6 +228,7 @@ input#chat_message {
   background: var(--right-msg-bg);
   color: #fff;
   border-bottom-right-radius: 0;
+  word-break: break-all;
 }
 .right-msg .msg-img {
   margin: 0 0 0 10px;

@@ -277,7 +277,7 @@ function handleWhiteboard(config) {
   function saveWbCanvas() {
     // Improve it if erase something...
     let link = document.createElement("a");
-    link.download = getDataTimeString() + "WHITEBOARD.jpg";
+    link.download = getDataTimeString() + "WHITEBOARD.png";
     link.href = canvas.toDataURL();
     link.click();
     link.delete;

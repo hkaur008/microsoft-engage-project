@@ -43,7 +43,11 @@ io.on('connection', (socket) => {
   socket.on('join-room', (roomId, userId ,userName,state) => {
     socket.join(roomId);
     socket.broadcast.to(roomId).emit('user-connected', userId , state);
-      
+          
+    var userRooms= admin.database().ref(`users/${userName}/rooms/${roomId}`);
+    userRooms.push().set({
+     "name": roomId
+  });  
     socket.on('message', (message) => {
       io.to(roomId).emit('createMessage', message , userName, userId);
     });
