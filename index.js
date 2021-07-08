@@ -10,7 +10,18 @@ const { ExpressPeerServer } = require('peer');
 const peerServer = ExpressPeerServer(server, {
   debug: true,
 });
+// server side realtime database 
+const admin = require('firebase-admin');
+var serviceAccount = require('./engage-project-9d8d3-firebase-adminsdk-vpacj-2bc49d6a67.json');
 
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://engage-project-9d8d3-default-rtdb.firebaseio.com"
+});
+
+
+
+// app started
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use('/peerjs', peerServer);
@@ -38,8 +49,26 @@ io.on('connection', (socket) => {
     });
     
     if(state ==="in-meet")
-    {   socket.on("disconnect", (reason)=>{
+    { 
+      // firebase code
+      var meetParticipantsRef =admin.database().ref(roomId).child("meetParticipants").child(userName);
+      meetParticipantsRef.push().set({
+        "tempo_id": userId,
+        "arrival-time": (new Date()).getTime()
+    });
+      
+    var currentParticipants= admin.database().ref(`${roomId}/currentParticipants/${userName}`);
+    currentParticipants.push().set({
+     "name": userName
+  });
+      //firebase code
+      socket.on("disconnect", (reason)=>{
+        meetParticipantsRef.push().set({
+          "tempo_id": userId,
+          "disconnected-time": (new Date()).getTime()
+      });
         socket.broadcast.emit("user-disconnected", userId ); 
+        admin.database().ref(`${roomId}/currentParticipants/${userName}`).remove();
     });
      
       socket.on('waved', (userId) => {

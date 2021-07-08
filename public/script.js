@@ -29,6 +29,7 @@ const msgerChat = get(".msger-chat");
 
 //firebase references
 var messagesRef =firebase.database().ref(ROOM_ID).child("messages")
+var currentParticipantsRef =firebase.database().ref(ROOM_ID).child("currentParticipants")
 
 // Icons made by Freepik from www.flaticon.com
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
@@ -412,3 +413,15 @@ document.getElementById(userId+"video").remove();
 const setVideoReversed =(element)=> {
   element.setAttribute("style", "transform: rotateY(180deg); -webkit-transform: rotateY(180deg); -moz-transform: rotateY(180deg);");
 }
+
+
+//currentsparticpants
+
+currentParticipantsRef.on('value', (snapshot) => {
+  var inpart ="";
+  snapshot.forEach( (element )=>{
+     inpart =inpart +`<div id ="${element.key}participant" >${element.key}    <i class="fas fa-hand-paper " id="${element.key}wave"></i></div>`
+    console.log(element.key);
+  })
+  document.getElementById("participants_list").innerHTML=inpart;
+});
