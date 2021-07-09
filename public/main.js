@@ -199,7 +199,7 @@ userRoomsRef.on('value', (snapshot) => {
       if((snap.key)===myName)
       {
        snap.child("rooms").forEach( (element )=>{
-    if(!document.getElementById(`${element.key}room`))
+    if(!document.getElementById(`${element.key}room`) && element.key!="00000000-0000-0000-0000-000000000000")
     { counter++;
       console.log(element.key);
       inpart =`<div id ="${element.key}room" class="border" ><h5>Meeting ${counter}</h5><a href="${window.location.origin}/main${element.key}">${element.key}</a></div>`
