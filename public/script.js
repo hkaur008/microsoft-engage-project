@@ -17,7 +17,7 @@ let filter = 'none';
 myVideo.muted = true;
 var roomMates = new Set();
 const state = "in-meet";
-let myName;
+let myName = prompt('Please enter your name', 'Hargun');;
 let myScreenStream;
 
 // sounds 
@@ -165,7 +165,6 @@ peer.on('open', (id) => {
 
 //username input
 const nameInput = (id)=> {
-  myName = prompt('Please enter your name', 'Hargun');
   if (myName != null) {
      messagesRef.on('value', (snapshot) => {
       if(!messageStatus){
