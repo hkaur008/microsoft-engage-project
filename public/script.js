@@ -71,10 +71,10 @@ navigator.mediaDevices
       if(call.metadata){
         video.setAttribute("id", call.peer + 's');
         }
-        else {
-          video.setAttribute("id", call.peer+"video");
-                setVideoReversed(video);
-        }
+        // else {
+        //   video.setAttribute("id", call.peer+"video");
+        //         setVideoReversed(video);
+        // }
         video.setAttribute("controls", "controls");
 
       call.on('stream', (userVideoStream) => {
