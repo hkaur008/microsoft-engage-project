@@ -1,0 +1,201 @@
+{
+  "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/Microsoft.Resources/deployments/Microsoft.Web-WebApp-Portal-8099c006-a523",
+  "name": "Microsoft.Web-WebApp-Portal-8099c006-a523",
+  "type": "Microsoft.Resources/deployments",
+  "tags": {
+    "primaryResourceId": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourcegroups/Hargun/providers/Microsoft.Web/sites/MicrosoftEngage",
+    "marketplaceItemId": "Microsoft.WebSite",
+    "provisioningHash": "customize-post-provisioning-steps-webapp-deployment"
+  },
+  "properties": {
+    "templateHash": "3863100770395468560",
+    "parameters": {
+      "subscriptionId": {
+        "type": "String",
+        "value": "66de7533-2098-4b88-a325-53a3b5a4c3c6"
+      },
+      "name": {
+        "type": "String",
+        "value": "MicrosoftEngage"
+      },
+      "location": {
+        "type": "String",
+        "value": "Central US"
+      },
+      "hostingPlanName": {
+        "type": "String",
+        "value": "ASP-Hargun-af5d"
+      },
+      "serverFarmResourceGroup": {
+        "type": "String",
+        "value": "Hargun"
+      },
+      "alwaysOn": {
+        "type": "Bool",
+        "value": true
+      },
+      "sku": {
+        "type": "String",
+        "value": "Standard"
+      },
+      "skuCode": {
+        "type": "String",
+        "value": "S1"
+      },
+      "workerSize": {
+        "type": "String",
+        "value": "0"
+      },
+      "workerSizeId": {
+        "type": "String",
+        "value": "0"
+      },
+      "numberOfWorkers": {
+        "type": "String",
+        "value": "1"
+      },
+      "currentStack": {
+        "type": "String",
+        "value": "node"
+      },
+      "phpVersion": {
+        "type": "String",
+        "value": "OFF"
+      },
+      "nodeVersion": {
+        "type": "String",
+        "value": "~14"
+      },
+      "repoUrl": {
+        "type": "String",
+        "value": "https://github.com/hkaur008/microsoft-engage-project"
+      },
+      "branch": {
+        "type": "String",
+        "value": "master"
+      }
+    },
+    "mode": "Incremental",
+    "debugSetting": {
+      "detailLevel": "None"
+    },
+    "provisioningState": "Succeeded",
+    "timestamp": "2021-07-09T08:30:49.1706003Z",
+    "duration": "PT1M29.6688664S",
+    "correlationId": "1d328dcf-6c84-4512-b9fc-c580d8186f72",
+    "providers": [
+      {
+        "namespace": "Microsoft.Web",
+        "resourceTypes": [
+          {
+            "resourceType": "sites",
+            "locations": [
+              "centralus"
+            ]
+          },
+          {
+            "resourceType": "sites/sourcecontrols",
+            "locations": [
+              null
+            ]
+          },
+          {
+            "resourceType": "serverfarms",
+            "locations": [
+              "centralus"
+            ]
+          }
+        ]
+      },
+      {
+        "namespace": "microsoft.insights",
+        "resourceTypes": [
+          {
+            "resourceType": "components",
+            "locations": [
+              "centralus"
+            ]
+          }
+        ]
+      },
+      {
+        "namespace": "Microsoft.Resources",
+        "resourceTypes": [
+          {
+            "resourceType": "deployments",
+            "locations": [
+              null
+            ]
+          }
+        ]
+      }
+    ],
+    "dependencies": [
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/microsoft.insights/components/MicrosoftEngage",
+            "resourceType": "microsoft.insights/components",
+            "resourceName": "MicrosoftEngage"
+          },
+          {
+            "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/Microsoft.Web/serverfarms/ASP-Hargun-af5d",
+            "resourceType": "Microsoft.Web/serverfarms",
+            "resourceName": "ASP-Hargun-af5d"
+          },
+          {
+            "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/microsoft.insights/components/MicrosoftEngage",
+            "resourceType": "microsoft.insights/components",
+            "resourceName": "MicrosoftEngage",
+            "apiVersion": "2015-05-01"
+          }
+        ],
+        "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/Microsoft.Web/sites/MicrosoftEngage",
+        "resourceType": "Microsoft.Web/sites",
+        "resourceName": "MicrosoftEngage"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/Microsoft.Web/Sites/MicrosoftEngage",
+            "resourceType": "Microsoft.Web/Sites",
+            "resourceName": "MicrosoftEngage"
+          }
+        ],
+        "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/Microsoft.Web/sites/MicrosoftEngage/sourcecontrols/web",
+        "resourceType": "Microsoft.Web/sites/sourcecontrols",
+        "resourceName": "MicrosoftEngage/web"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/DefaultResourceGroup-CUS/providers/Microsoft.Resources/deployments/newWorkspaceTemplate",
+            "resourceType": "Microsoft.Resources/deployments",
+            "resourceName": "newWorkspaceTemplate"
+          }
+        ],
+        "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/microsoft.insights/components/MicrosoftEngage",
+        "resourceType": "microsoft.insights/components",
+        "resourceName": "MicrosoftEngage"
+      }
+    ],
+    "outputResources": [
+      {
+        "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/DefaultResourceGroup-CUS/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-66de7533-2098-4b88-a325-53a3b5a4c3c6-CUS"
+      },
+      {
+        "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/microsoft.insights/components/MicrosoftEngage"
+      },
+      {
+        "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/Microsoft.Web/serverfarms/ASP-Hargun-af5d"
+      },
+      {
+        "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/Microsoft.Web/sites/MicrosoftEngage"
+      },
+      {
+        "id": "/subscriptions/66de7533-2098-4b88-a325-53a3b5a4c3c6/resourceGroups/Hargun/providers/Microsoft.Web/sites/MicrosoftEngage/sourcecontrols/web"
+      }
+    ],
+    "validationLevel": "Template"
+  }
+}
