@@ -22,7 +22,6 @@ const msgerChat = get(".msger-chat");
 
 //firebase references
 var messagesRef =firebase.database().ref(ROOM_ID).child("messages")
-var meetParticipantsRef =firebase.database().ref(ROOM_ID).child("meetParticipants")
 
 // Icons made by Freepik from www.flaticon.com
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
@@ -179,6 +178,10 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
+
+
+if((ROOM_ID+"").length===36)
+{var meetParticipantsRef =firebase.database().ref(ROOM_ID).child("meetParticipants")
 // all meeting participants code ends 
 meetParticipantsRef.on('value', (snapshot) => {
   var inpart ="";
@@ -189,6 +192,9 @@ meetParticipantsRef.on('value', (snapshot) => {
       }
   })
 });
+}
+
+
 let counter=0;
 // all meeting participants code ends 
 var userRoomsRef =firebase.database().ref("users")
@@ -213,7 +219,7 @@ userRoomsRef.on('value', (snapshot) => {
 
 join_meet.addEventListener('click',(event)=>{
   event.preventDefault();
-  if((ROOM_ID+"").toLowerCase()!=myName.toLowerCase())
+  if((ROOM_ID+"").toLowerCase()!= myName.toLowerCase())
   window.open(`${window.location.origin}/${ROOM_ID}`);
   else{
     window.open(`${window.location.origin}/teams-webrtc`);
