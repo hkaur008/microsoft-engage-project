@@ -13,7 +13,8 @@ const join_meet = document.getElementById("join-meet");
 
 const state = "out-meet";
 const peers = {}
-let myName;
+let myName = prompt('Please enter your name', 'Hargun');
+;
 // messenger
 let messageStatus = 0;
 const msgerForm = get(".msger-inputarea");
@@ -22,7 +23,6 @@ const msgerChat = get(".msger-chat");
 
 //firebase references
 var messagesRef =firebase.database().ref(ROOM_ID).child("messages")
-var meetParticipantsRef =firebase.database().ref(ROOM_ID).child("meetParticipants")
 
 // Icons made by Freepik from www.flaticon.com
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
@@ -91,9 +91,9 @@ peer.on('open', (id) => {
 
 });
 
+console.log(myName + " first");
 //username input
 const nameInput = (id)=> {
-   myName = prompt('Please enter your name', 'Hargun');
   if (myName != null) {
      
      messagesRef.on('value', (snapshot) => {
@@ -112,7 +112,11 @@ const nameInput = (id)=> {
     socket.emit('join-room', ROOM_ID, id , myName , state);
     myId=id;
   }
+  console.log(myName + " inside");
 }
+
+console.log(myName + " outside");
+
 
 
 // messenger code starts
@@ -179,6 +183,10 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
+
+
+if((ROOM_ID+"").length===36)
+{var meetParticipantsRef =firebase.database().ref(ROOM_ID).child("meetParticipants")
 // all meeting participants code ends 
 meetParticipantsRef.on('value', (snapshot) => {
   var inpart ="";
@@ -189,10 +197,15 @@ meetParticipantsRef.on('value', (snapshot) => {
       }
   })
 });
+}
+
+
 let counter=0;
 // all meeting participants code ends 
+console.log("reached here"+myName + " counter")
 var userRoomsRef =firebase.database().ref("users")
 userRoomsRef.on('value', (snapshot) => {
+console.log("went-inside");
   var inpart ="";
   // if(snapshot.key === myName)
     snapshot.forEach((snap)=>{
@@ -213,7 +226,7 @@ userRoomsRef.on('value', (snapshot) => {
 
 join_meet.addEventListener('click',(event)=>{
   event.preventDefault();
-  if((ROOM_ID+"").toLowerCase()!=myName.toLowerCase())
+  if((ROOM_ID+"").toLowerCase()!= myName.toLowerCase())
   window.open(`${window.location.origin}/${ROOM_ID}`);
   else{
     window.open(`${window.location.origin}/teams-webrtc`);
@@ -229,7 +242,8 @@ var jsonDL;
 reportGenerate.addEventListener('click', ()=>{
 // all meeting participants code ends 
 var recordHTML = start_template;
-meetParticipantsRef.on('value', (snapshot) => {
+if((ROOM_ID+"").length===36)
+{meetParticipantsRef.on('value', (snapshot) => {
   var inpart ="";
     snapshot.forEach((element)=>{
       recordHTML = recordHTML + ` <div class="accordion" id="accordionExample">
@@ -272,6 +286,7 @@ recordHTML = recordHTML + `
 </html>
 `;
 download( `${ROOM_ID}_${new Date().toLocaleString()}.html`,recordHTML);
+}
 
 })
 
