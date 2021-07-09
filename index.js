@@ -93,7 +93,7 @@ io.on('connection', (socket) => {
    * Whiteboard actions for all user in the same room
    */
   socket.on("wb", (config) => {
-    io.to(roomId).emit("wb", config);
+    io.to(roomId).emit("wb_draw", config);
   });
 
 
