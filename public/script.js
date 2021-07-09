@@ -40,7 +40,7 @@ var currentParticipantsRef =firebase.database().ref(ROOM_ID).child("currentParti
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
 
 const userName ='hargun';
-let myId = null ;
+let myId  ;
 
 var peer = new Peer(undefined, {
   path: '/peerjs',
