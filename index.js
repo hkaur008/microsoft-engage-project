@@ -48,7 +48,7 @@ io.on('connection', (socket) => {
     socket.broadcast.to(roomId).emit('user-connected', userId , state);
           
     var userRooms= admin.database().ref(`users/${userName}/rooms/${roomId}`);
-    if(roomId.toLowerCase()!=userName.toLowerCase())
+    if((roomId+"").length===36)
     userRooms.push().set({
      "name": roomId
   });  
