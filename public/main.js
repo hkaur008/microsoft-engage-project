@@ -196,7 +196,7 @@ userRoomsRef.on('value', (snapshot) => {
   var inpart ="";
   // if(snapshot.key === myName)
     snapshot.forEach((snap)=>{
-      if((snap.key).toLowerCase===myName.toLowerCase)
+      if((snap.key)===myName)
       {
        snap.child("rooms").forEach( (element )=>{
     if(!document.getElementById(`${element.key}room`))
