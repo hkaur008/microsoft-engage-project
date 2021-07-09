@@ -213,7 +213,7 @@ userRoomsRef.on('value', (snapshot) => {
 
 join_meet.addEventListener('click',(event)=>{
   event.preventDefault();
-  if((ROOM_ID+"").toLowerCase!=myName.toLowerCase)
+  if((ROOM_ID+"").toLowerCase()!=myName.toLowerCase())
   window.open(`${window.location.origin}/${ROOM_ID}`);
   else{
     window.open(`${window.location.origin}/teams-webrtc`);
@@ -250,7 +250,7 @@ meetParticipantsRef.on('value', (snapshot) => {
         
           recordHTML = recordHTML + `<tr>
           <td>${new Date(x.val().arrival_time).toLocaleString()}</td>
-          <td>${ new Date(x.val().disconnected_time).toLocaleString()}</td>
+          <td>${new Date(x.val().disconnected_time).toLocaleString()}</td>
           </tr>`
 
         })
@@ -274,11 +274,6 @@ recordHTML = recordHTML + `
 download( `${ROOM_ID}_${new Date().toLocaleString()}.html`,recordHTML);
 
 })
-
-
-
-
-
 
 
 function download(filename, text) {

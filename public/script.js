@@ -73,7 +73,6 @@ navigator.mediaDevices
         }
         else {
           video.setAttribute("id", call.peer+"video");
-                setVideoReversed(video);
         }
         video.setAttribute("controls", "controls");
 
