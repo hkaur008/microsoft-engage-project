@@ -13,7 +13,8 @@ const join_meet = document.getElementById("join-meet");
 
 const state = "out-meet";
 const peers = {}
-let myName ;
+let myName = prompt('Please enter your name', 'Hargun');
+;
 // messenger
 let messageStatus = 0;
 const msgerForm = get(".msger-inputarea");
@@ -93,7 +94,6 @@ peer.on('open', (id) => {
 console.log(myName + " first");
 //username input
 const nameInput = (id)=> {
-   myName = prompt('Please enter your name', 'Hargun');
   if (myName != null) {
      
      messagesRef.on('value', (snapshot) => {
