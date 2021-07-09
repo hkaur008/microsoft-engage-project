@@ -13,7 +13,7 @@ const join_meet = document.getElementById("join-meet");
 
 const state = "out-meet";
 const peers = {}
-let myName;
+let myName ;
 // messenger
 let messageStatus = 0;
 const msgerForm = get(".msger-inputarea");
@@ -90,6 +90,7 @@ peer.on('open', (id) => {
 
 });
 
+console.log(myName + " first");
 //username input
 const nameInput = (id)=> {
    myName = prompt('Please enter your name', 'Hargun');
@@ -111,7 +112,11 @@ const nameInput = (id)=> {
     socket.emit('join-room', ROOM_ID, id , myName , state);
     myId=id;
   }
+  console.log(myName + " inside");
 }
+
+console.log(myName + " outside");
+
 
 
 // messenger code starts
