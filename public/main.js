@@ -197,7 +197,7 @@ meetParticipantsRef.on('value', (snapshot) => {
 
 let counter=0;
 // all meeting participants code ends 
-console.log("reached here")
+console.log("reached here"+myName + " counter")
 var userRoomsRef =firebase.database().ref("users")
 userRoomsRef.on('value', (snapshot) => {
 console.log("went-inside");
@@ -237,7 +237,8 @@ var jsonDL;
 reportGenerate.addEventListener('click', ()=>{
 // all meeting participants code ends 
 var recordHTML = start_template;
-meetParticipantsRef.on('value', (snapshot) => {
+if((ROOM_ID+"").length===36)
+{meetParticipantsRef.on('value', (snapshot) => {
   var inpart ="";
     snapshot.forEach((element)=>{
       recordHTML = recordHTML + ` <div class="accordion" id="accordionExample">
@@ -280,6 +281,7 @@ recordHTML = recordHTML + `
 </html>
 `;
 download( `${ROOM_ID}_${new Date().toLocaleString()}.html`,recordHTML);
+}
 
 })
 
