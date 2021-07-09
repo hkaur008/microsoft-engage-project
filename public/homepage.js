@@ -1,7 +1,7 @@
   
  // 
  const profile =()=>{
-    window.location.href=`${window.location.origin}/main${document.getElementById("usernameInput").value} `;
+    window.location.href=`${window.location.origin}/main${document.getElementById("usernameInput").value}`;
 
  }
  const newRoom =()=>{
