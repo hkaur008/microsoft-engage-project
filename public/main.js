@@ -197,8 +197,10 @@ meetParticipantsRef.on('value', (snapshot) => {
 
 let counter=0;
 // all meeting participants code ends 
+console.log("reached here")
 var userRoomsRef =firebase.database().ref("users")
 userRoomsRef.on('value', (snapshot) => {
+console.log("went-inside");
   var inpart ="";
   // if(snapshot.key === myName)
     snapshot.forEach((snap)=>{
