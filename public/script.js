@@ -54,6 +54,11 @@ var getUserMedia =
   navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia;
+  
+  peer.on('open', (id) => {
+    nameInput(id);
+    
+  });  
 
 navigator.mediaDevices
   .getUserMedia({
@@ -158,10 +163,7 @@ peer.on('call', (call)=> {
   );
 });
 
-peer.on('open', (id) => {
-  nameInput(id);
-  
-});
+
 
 //username input
 const nameInput = (id)=> {
