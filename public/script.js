@@ -42,14 +42,6 @@ const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
 const userName ='hargun';
 let myId  ;
 
-let myVideoStream;
-
-var getUserMedia =
-  navigator.getUserMedia ||
-  navigator.webkitGetUserMedia ||
-  navigator.mozGetUserMedia;
-
- 
 var peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
@@ -57,8 +49,18 @@ var peer = new Peer(undefined, {
 });
 
 peer.on('open', (id) => {
+  myId=id;
   nameInput(id);
-  
+
+});  
+
+let myVideoStream;
+
+var getUserMedia =
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia;
+
   navigator.mediaDevices
   .getUserMedia({
     video: true,
@@ -85,17 +87,12 @@ peer.on('open', (id) => {
         addVideoStream(video, userVideoStream);
       });
     });
-
-
-  
-});  
-
-
  
 
 //user connected    
     socket.on('user-connected', (userId , state) => {
      if(state === "in-meet") {
+       console.log(userId);
         connectToNewUser(userId, stream);
          roomMates.add(userId); 
          console.log(roomMates);
@@ -188,7 +185,6 @@ const nameInput = (id)=> {
     });
     
     socket.emit('join-room', ROOM_ID, id , myName , state);
-    myId=id;
   }
 
 }
