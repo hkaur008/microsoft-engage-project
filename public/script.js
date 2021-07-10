@@ -48,17 +48,18 @@ var peer = new Peer(undefined, {
   port: '443',
 });
 
+peer.on('open', (id) => {
+  nameInput(id);
+  
+});  
+
+
 let myVideoStream;
 
 var getUserMedia =
   navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia;
-  
-  peer.on('open', (id) => {
-    nameInput(id);
-    
-  });  
 
 navigator.mediaDevices
   .getUserMedia({
