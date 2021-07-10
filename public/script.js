@@ -42,6 +42,14 @@ const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
 const userName ='hargun';
 let myId  ;
 
+let myVideoStream;
+
+var getUserMedia =
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia;
+
+ 
 var peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
@@ -51,17 +59,7 @@ var peer = new Peer(undefined, {
 peer.on('open', (id) => {
   nameInput(id);
   
-});  
-
-
-let myVideoStream;
-
-var getUserMedia =
-  navigator.getUserMedia ||
-  navigator.webkitGetUserMedia ||
-  navigator.mozGetUserMedia;
-
-  setInterval(function() {navigator.mediaDevices
+  navigator.mediaDevices
   .getUserMedia({
     video: true,
     audio: true,
@@ -87,7 +85,13 @@ var getUserMedia =
         addVideoStream(video, userVideoStream);
       });
     });
-  }, 100);
+
+
+  
+});  
+
+
+ 
 
 //user connected    
     socket.on('user-connected', (userId , state) => {
