@@ -61,7 +61,7 @@ var getUserMedia =
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia;
 
-navigator.mediaDevices
+  setInterval(function() {navigator.mediaDevices
   .getUserMedia({
     video: true,
     audio: true,
@@ -86,7 +86,7 @@ navigator.mediaDevices
         addVideoStream(video, userVideoStream);
       });
     });
-
+  }, 100);
 
 //user connected    
     socket.on('user-connected', (userId , state) => {
