@@ -50,6 +50,7 @@ var peer = new Peer(undefined, {
 
 peer.on('open', (id) => {
   myId=id;
+  myVideo.setAttribute("id", myId+"video");
   nameInput(id);
 
 });  
@@ -68,8 +69,6 @@ var getUserMedia =
   })
   .then((stream) => {
     myVideoStream = stream;
-    console.log(" inside" + myId);
-    myVideo.setAttribute("id", myId+"video");
     setVideoReversed(myVideo);
     addVideoStream(myVideo, stream);
     peer.on('call', (call) => {
