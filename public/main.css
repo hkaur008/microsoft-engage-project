@@ -136,7 +136,7 @@ input#chat_message {
 .chat_list{
   min-width:30%;
   background-color:#f8f9fa;
-  
+  overflow-y: auto;
 }
 
 .msger-chat {
