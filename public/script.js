@@ -61,8 +61,7 @@ var getUserMedia =
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia;
 
-  navigator.mediaDevices
-  .getUserMedia({
+  navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true,
   })
