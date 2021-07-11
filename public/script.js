@@ -18,7 +18,7 @@ myVideo.muted = true;
 var roomMates = new Set();
 const state = "in-meet";
 let myName = prompt('Please enter your username', '');
-;
+
 let myScreenStream;
 
 // sounds 
