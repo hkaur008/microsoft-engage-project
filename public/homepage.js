@@ -15,7 +15,7 @@ const joinRoom =()=>{
 particlesJS("particles-js", {
     "particles": {
       "number": {
-        "value": 380,
+        "value": 300,
         "density": {
           "enable": true,
           "value_area": 1500
@@ -27,7 +27,7 @@ particlesJS("particles-js", {
       "shape": {
         "type": "circle",
         "stroke": {
-          "width": 0,
+          "width": 1,
           "color": "#000000"
         },
         "polygon": {

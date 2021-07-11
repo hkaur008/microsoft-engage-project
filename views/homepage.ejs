@@ -22,21 +22,25 @@
 <!-- particles.js container -->
 <div id="particles-js"></div>
 
-<div class="card">
-    <div class="card-headers bg-primary"> GET PROFILE !</div>
-    <div class="card-content">
+<div class="card" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"">
+    <div class="card-headers ">Profile Login</div>
+    <div class=" card-body card-content">
         <input id="usernameInput" type="text" placeholder="User Name"  required>
-        <button class="button btn btn-secondary"onclick="profile()">USER PROFILE </button>
+        <button class="button rounded"onclick="profile()">USER PROFILE </button>
     </div></div>
 
-  <div class="card">
-    <div class="card-headers bg-danger">VIDEO CALL !</div>
-    <div class="card-content">
-            <input id="joinroomInput" type="text" placeholder="Enter Room Id" autocomplete="off" required>
-            <button class="button btn btn-danger" onclick="joinRoom()">JOIN ROOM</button>
-        
+  <div class="card" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+    <div class="card-headers">Join Meet</div>
+    <div class="card-body card-content">
+            <input id="joinroomInput" type="text" placeholder="Enter Meeting Id" autocomplete="off" required>
+            <button class="button rounded  " onclick="joinRoom()">JOIN MEET</button>
+          </div></div>
+
+   <div class="card" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+            <div class="card-headers ">Start new Meeting </div>
+            <div class="card-body card-content">
         <input id="newroomInput" type="text" placeholder="User Name" autocomplete="off" required>
-        <button class="button button btn btn-success" onclick="newRoom()">CREATE ROOM</button>
+        <button class="button rounded " onclick="newRoom()">START MEET</button>
 
     </div></div>
 
@@ -51,7 +55,9 @@
   <script>
 
     $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip({
+        placement: 'bottom'
+    })
 })
   </script>
   <script src="https://kit.fontawesome.com/d2f1016e6f.js" crossorigin="anonymous"></script>
