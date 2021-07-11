@@ -17,7 +17,8 @@ let filter = 'none';
 myVideo.muted = true;
 var roomMates = new Set();
 const state = "in-meet";
-let myName;
+let myName = prompt('Please enter your username', '');
+;
 let myScreenStream;
 
 // sounds 
@@ -62,7 +63,7 @@ navigator.mediaDevices
   })
   .then((stream) => {
     myVideoStream = stream;
-    myVideo.setAttribute("id", myId+"video");
+    myVideo.setAttribute("id", peer.id+"video");
     setVideoReversed(myVideo);
     addVideoStream(myVideo, stream);
     peer.on('call', (call) => {
@@ -73,7 +74,6 @@ navigator.mediaDevices
         }
         else {
           video.setAttribute("id", call.peer+"video");
-                setVideoReversed(video);
         }
         video.setAttribute("controls", "controls");
 
@@ -166,7 +166,6 @@ peer.on('open', (id) => {
 
 //username input
 const nameInput = (id)=> {
-  myName = prompt('Please enter your name', 'Hargun');
   if (myName != null) {
      messagesRef.on('value', (snapshot) => {
       if(!messageStatus){
@@ -373,7 +372,7 @@ photoFilter.addEventListener('change', (e)=> {
 });
 
 socket.on('change-filter',(videoId,filter)=>{
-  document.getElementById(videoId).style.filter = filter;
+  if(document.getElementById(videoId)) document.getElementById(videoId).style.filter = filter;
 })
 
 // messenger code starts
