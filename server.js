@@ -4,7 +4,9 @@ const server = require('http').Server(app);
 const path = require('path'); 
 const { v4: uuidv4 } = require('uuid');
 const io = require('socket.io')(server);
+
 const PORT = process.env.PORT || 443;
+
 // Peer
 const { ExpressPeerServer } = require('peer');
 const peerServer = ExpressPeerServer(server, {
@@ -52,7 +54,7 @@ io.on('connection', (socket) => {
     userRooms.push().set({
      "name": roomId
   });  
-  
+
     socket.on('message', (message) => {
       io.to(roomId).emit('createMessage', message , userName, userId);
     });
@@ -92,7 +94,9 @@ io.on('connection', (socket) => {
    * Whiteboard actions for all user in the same room
    */
   socket.on("wb", (config) => {
+
     io.to(roomId).emit("wb", config);
+
   });
 
 
