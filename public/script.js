@@ -48,6 +48,12 @@ var peer = new Peer(undefined, {
   port: '443',
 });
 
+peer.on('open', (id) => {
+  myId=id;
+  socket.emit('join-room', ROOM_ID, id , myName , state);
+
+});  
+
 let myVideoStream;
 
 var getUserMedia =
@@ -55,16 +61,17 @@ var getUserMedia =
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia;
 
-navigator.mediaDevices
-  .getUserMedia({
+  navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true,
   })
   .then((stream) => {
     myVideoStream = stream;
-    myVideo.setAttribute("id", myId+"video");
     setVideoReversed(myVideo);
     addVideoStream(myVideo, stream);
+    console.log(peer.id+"inside");
+    myVideo.setAttribute("id", peer.id+"video");
+
     peer.on('call', (call) => {
       call.answer(stream);
       const video = document.createElement('video');
@@ -80,11 +87,13 @@ navigator.mediaDevices
         addVideoStream(video, userVideoStream);
       });
     });
-
+ 
 
 //user connected    
     socket.on('user-connected', (userId , state) => {
      if(state === "in-meet") {
+       console.log(userId);
+       console.log(stream);
         connectToNewUser(userId, stream);
          roomMates.add(userId); 
          console.log(roomMates);
@@ -158,33 +167,22 @@ peer.on('call', (call)=> {
   );
 });
 
-peer.on('open', (id) => {
-  nameInput(id);
-  
-});
 
-//username input
-const nameInput = (id)=> {
-  if (myName != null) {
-     messagesRef.on('value', (snapshot) => {
-      if(!messageStatus){
-      snapshot.forEach( (element )=>{
-          if(element.val().sender===myName)
-        appendBeforeMessage(element.val().sender,PERSON_IMG,"right",element.val().message,element.val().createdAt)
-        else{
-        appendBeforeMessage(element.val().sender,PERSON_IMG,"left",element.val().message,element.val().createdAt)
-        }
-      })
-    }
-      messageStatus = 1;
-    });
-    
-    socket.emit('join-room', ROOM_ID, id , myName , state);
-    myId=id;
-  }
 
+if (myName != null) {
+  messagesRef.on('value', (snapshot) => {
+   if(!messageStatus){
+   snapshot.forEach( (element )=>{
+       if(element.val().sender===myName)
+     appendBeforeMessage(element.val().sender,PERSON_IMG,"right",element.val().message,element.val().createdAt)
+     else{
+     appendBeforeMessage(element.val().sender,PERSON_IMG,"left",element.val().message,element.val().createdAt)
+     }
+   })
+ }
+   messageStatus = 1;
+ });
 }
-
 
 // messenger code starts
 
@@ -221,6 +219,7 @@ const connectToNewUser = (userId, streams) => {
     else {
       video.setAttribute("id", userId+"video");
     }
+
   call.on('stream', (userVideoStream) => {
     addVideoStream(video, userVideoStream);
   });
@@ -296,7 +295,7 @@ const shareScreen =()=> {
     navigator.mediaDevices.getDisplayMedia().then(stream => {
       myScreenStream = stream;
       ScreenVideo.setAttribute("controls", "controls");
-      ScreenVideo.setAttribute("id", myId+ 's');
+      ScreenVideo.setAttribute("id", peer.id+ 's');
       addVideoStream(ScreenVideo, stream);
       ScreenVideo.setAttribute("style", "display:normal");
       roomMates.forEach(users => {
