@@ -52,5 +52,5 @@ jobs:
       with:
         app-name: 'MicrosoftEngage'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_f8da6d5d9ae449ca9c9193bed9bc909d }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_0caef04f48064c0daee0405830b86c08 }}
         package: .
