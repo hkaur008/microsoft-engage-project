@@ -247,7 +247,6 @@ function handleWhiteboard(config) {
       if (isDrawing) {
         draw(e.offsetX, e.offsetY, x, y);
         // send draw to other peers in the room
-        if (roomMates.size) {
             socket.emit("wb", {
             act: "draw",
             newx: e.offsetX,
@@ -257,7 +256,6 @@ function handleWhiteboard(config) {
             color: color,
             size: drawsize,
           });
-        }
         x = e.offsetX;
         y = e.offsetY;
       }
@@ -288,15 +286,13 @@ function handleWhiteboard(config) {
    * @param {*} action
    */
   function remoteWbAction(action) {
-    if (roomMates.size) {
       socket.emit("wb", {
         peer_name: myName,
         act: action,
       });
-    }
   }
   
-  socket.on("wb",(config) =>{
+  socket.on("wb_draw",(config) =>{
     handleWhiteboard(config);
   })
   
