@@ -30,6 +30,15 @@ Participant List , Hand Raise , Invite Participants ![image](https://user-images
 **Chat integration** : Chat during meeting | Emojis integration
 Chat Screen | ![image](https://user-images.githubusercontent.com/56452820/125260478-fcd05300-e31d-11eb-9e67-ce8fa9ca6a42.png)
 ![Animated GIF-downsized](https://user-images.githubusercontent.com/56452820/125267964-e1b51180-e324-11eb-8f69-709d17aa3a5f.gif)
+**Chat  After and Before meeting** : | 
+![image](https://user-images.githubusercontent.com/56452820/125268645-83d4f980-e325-11eb-8c45-66e7edc36c99.png)|![image](https://user-images.githubusercontent.com/56452820/125270334-30fc4180-e327-11eb-89f2-0b3d54e04f2d.png)
+List of participants in the room (On clicking on file button meeting record gets downloaded as right side) ![image](https://user-images.githubusercontent.com/56452820/125270667-82a4cc00-e327-11eb-80fc-f9d947d2d049.png) | ![image](https://user-images.githubusercontent.com/56452820/125270284-22ae2580-e327-11eb-996c-322e90399aa9.png)
+
+
+
+Chat Screen | ![image](https://user-images.githubusercontent.com/56452820/125260478-fcd05300-e31d-11eb-9e67-ce8fa9ca6a42.png)
+![Animated GIF-downsized](https://user-images.githubusercontent.com/56452820/125267964-e1b51180-e324-11eb-8f69-709d17aa3a5f.gif)
+
 
 ##  Agile methology and workflow:
 
@@ -76,8 +85,5 @@ Feature | Explanation
 Specific Team group Atmosphere manager| As Teams is a chat conversational platform as well, wanted to build a chat room positivity meter to analyse chat text to extract user sentiments and emotional state during the conversation using Microsoft Cognitive Services or ML APIs.    
 Send Code integration | A microsoft teams inspired feature for developers to work in collabrative environment and code together.
 Blind mode | Switching to this mode user will hear the tool description through audios ,and can video call their families as well.
-
-
-![Animated GIF-source (3)](https://user-images.githubusercontent.com/56452820/125270379-3c4f6d00-e327-11eb-9c3e-1ca9acfb252a.gif)
 
 
