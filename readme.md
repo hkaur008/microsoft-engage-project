@@ -22,9 +22,19 @@ Include a chat feature in your application where meeting participants can share 
 ## Features:
 Feature | Images
 ------------ | -------------
-Image based search | We had used CNN model, which enables the user to search item just by uploading image. We had trained our model over 7 categories of different state and different items so, that if you get to any picture or product over scrolling some social media or are having any antique piece and wants to buysuch product so, he/she could just upload it over our site and our program will redirect it to proct buying page of similar product.  
+ **Hompage**  
+ Mouse Interactive UI is motivation of connecting around the globe feature using particle.js . Options for users : **Profile Login** : To see all records of user ,access chatroom and meeting , **Join Meet**  , **Start new Meeting**  | <img width="750px" height="300px" src="/readme_assets/hoveroverhome.gif">
+Meeting Screen![image](https://user-images.githubusercontent.com/56452820/125260357-e3c7a200-e31d-11eb-8c96-e70cfbe9a708.png) |White board ![image](https://user-images.githubusercontent.com/56452820/125260142-a82cd800-e31d-11eb-8718-c69fd8052f7b.png) | 
+ Tool bar| ![Mute Unmute](https://user-images.githubusercontent.com/56452820/125264078-2c348f00-e321-11eb-981f-8b2c7f68fee9.png) 
+Participant List , Hand Raise , Invite Participants ![image](https://user-images.githubusercontent.com/56452820/125260613-225d5c80-e31e-11eb-868b-623f90b9a1a5.png)|Screen Sharing ![image](https://user-images.githubusercontent.com/56452820/125260014-87fd1900-e31d-11eb-9839-72cf59a75020.png)
+**Chat integration** : Chat during meeting | Emojis integration
+Chat Screen | ![image](https://user-images.githubusercontent.com/56452820/125260478-fcd05300-e31d-11eb-9e67-ce8fa9ca6a42.png)
+
+
 
 ##  Agile methology and workflow:
+
+
 
 
 ##  Technologies used:
