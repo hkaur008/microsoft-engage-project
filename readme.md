@@ -13,10 +13,10 @@ Include a chat feature in your application where meeting participants can share 
 <img width=49% src="/readme_assets/homepage.gif"> <img width=49% src="/readme_assets/hoveroverhome.gif">
 
 
-## 🚩 Links for project:
+## 🔗 Links for project:
  Video link : (To be here)
  Live demo : Azure : [http://microsoftengage.azurewebsites.net/](http://microsoftengage.azurewebsites.net/) Heroku :  [https://microsoft-demo.herokuapp.com/](https://microsoft-demo.herokuapp.com/)
-## 🚩 Web flow
+## 🌐 Web flow
 
 
 ## 🚩 Agile methology and workflow:
