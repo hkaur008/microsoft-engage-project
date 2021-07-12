@@ -29,8 +29,7 @@ Meeting Screen![image](https://user-images.githubusercontent.com/56452820/125260
 Participant List , Hand Raise , Invite Participants ![image](https://user-images.githubusercontent.com/56452820/125260613-225d5c80-e31e-11eb-868b-623f90b9a1a5.png)|Screen Sharing ![image](https://user-images.githubusercontent.com/56452820/125260014-87fd1900-e31d-11eb-9839-72cf59a75020.png)
 **Chat integration** : Chat during meeting | Emojis integration
 Chat Screen | ![image](https://user-images.githubusercontent.com/56452820/125260478-fcd05300-e31d-11eb-9e67-ce8fa9ca6a42.png)
-
-
+![Animated GIF-downsized](https://user-images.githubusercontent.com/56452820/125267964-e1b51180-e324-11eb-8f69-709d17aa3a5f.gif)
 
 ##  Agile methology and workflow:
 
@@ -80,4 +79,4 @@ Blind mode | Switching to this mode user will hear the tool description through 
 
 
 
-![Animated GIF-downsized](https://user-images.githubusercontent.com/56452820/125267964-e1b51180-e324-11eb-8f69-709d17aa3a5f.gif)
+
