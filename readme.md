@@ -17,6 +17,7 @@ Include a chat feature in your application where meeting participants can share 
  Video link : (To be here)
  Live demo : Azure : [http://microsoftengage.azurewebsites.net/](http://microsoftengage.azurewebsites.net/) Heroku :  [https://microsoft-demo.herokuapp.com/](https://microsoft-demo.herokuapp.com/)
 ## 🌐 Web flow
+<img width=70% src="https://user-images.githubusercontent.com/56452820/125286530-86d9e500-e339-11eb-92d0-64fa09951138.png" >
 
 
 ## 🚩 Agile methology and workflow:
