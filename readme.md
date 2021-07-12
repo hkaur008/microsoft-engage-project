@@ -78,6 +78,6 @@ Send Code integration | A microsoft teams inspired feature for developers to wor
 Blind mode | Switching to this mode user will hear the tool description through audios ,and can video call their families as well.
 
 
+![Animated GIF-source (3)](https://user-images.githubusercontent.com/56452820/125270379-3c4f6d00-e327-11eb-9c3e-1ca9acfb252a.gif)
 
-![Animated GIF-source (2)](https://user-images.githubusercontent.com/56452820/125270007-e24ea780-e326-11eb-972f-37e367b90022.gif)
 
