@@ -27,9 +27,9 @@ Feature | Images
 Meeting Screen![image](https://user-images.githubusercontent.com/56452820/125260357-e3c7a200-e31d-11eb-8c96-e70cfbe9a708.png) |White board ![image](https://user-images.githubusercontent.com/56452820/125260142-a82cd800-e31d-11eb-8718-c69fd8052f7b.png) | 
  Tool bar| ![Mute Unmute](https://user-images.githubusercontent.com/56452820/125264078-2c348f00-e321-11eb-981f-8b2c7f68fee9.png) 
 Participant List , Hand Raise , Invite Participants ![image](https://user-images.githubusercontent.com/56452820/125260613-225d5c80-e31e-11eb-868b-623f90b9a1a5.png)|Screen Sharing ![image](https://user-images.githubusercontent.com/56452820/125260014-87fd1900-e31d-11eb-9839-72cf59a75020.png)
-**Chat integration** : Chat during meeting | Emojis integration
+**Chat integration** : Chat during meeting | **Emojis integration**
 Chat Screen | ![image](https://user-images.githubusercontent.com/56452820/125260478-fcd05300-e31d-11eb-9e67-ce8fa9ca6a42.png)
-![Animated GIF-downsized](https://user-images.githubusercontent.com/56452820/125267964-e1b51180-e324-11eb-8f69-709d17aa3a5f.gif)
+![Animated GIF-downsized](https://user-images.githubusercontent.com/56452820/125267964-e1b51180-e324-11eb-8f69-709d17aa3a5f.gif)| **Photo - filters** ![Animated GIF-downsized_large (1)](https://user-images.githubusercontent.com/56452820/125271930-e085e380-e328-11eb-943d-8f3ca64d5911.gif)
 **Chat  After and Before meeting** : | 
 ![image](https://user-images.githubusercontent.com/56452820/125268645-83d4f980-e325-11eb-8c45-66e7edc36c99.png)|![image](https://user-images.githubusercontent.com/56452820/125270334-30fc4180-e327-11eb-89f2-0b3d54e04f2d.png)
 List of participants in the room (On clicking on file button meeting record gets downloaded as right side) ![image](https://user-images.githubusercontent.com/56452820/125270284-22ae2580-e327-11eb-996c-322e90399aa9.png)|![image](https://user-images.githubusercontent.com/56452820/125270667-82a4cc00-e327-11eb-80fc-f9d947d2d049.png)
