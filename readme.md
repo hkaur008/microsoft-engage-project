@@ -79,4 +79,5 @@ Blind mode | Switching to this mode user will hear the tool description through 
 
 
 
+![Animated GIF-source (2)](https://user-images.githubusercontent.com/56452820/125270007-e24ea780-e326-11eb-972f-37e367b90022.gif)
 
