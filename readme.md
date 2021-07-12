@@ -14,9 +14,8 @@ Include a chat feature in your application where meeting participants can share 
 
 
 ## Links for project:
- VIDEO LINK: https://www.youtube.com/watch?v=KEKJAbJT1TU&feature=emb_title
- LIVE PROJECT LINK: http://www.saddi-hatti.online/
-
+ Video link : (To be here)
+ Live demo : Azure : [http://microsoftengage.azurewebsites.net/](http://microsoftengage.azurewebsites.net/) Heroku :  [https://microsoft-demo.herokuapp.com/](https://microsoft-demo.herokuapp.com/)
 ## Web flow
 
 
