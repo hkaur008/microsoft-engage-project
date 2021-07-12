@@ -19,6 +19,19 @@ Include a chat feature in your application where meeting participants can share 
 
 ## Web flow
 
+
+##  Agile methology and workflow:
+Agile methology was followed by implementation of sprint of 4 days in a week , continuous integration and developmet while hosting the app both on Azure and Heroku.
+Work was proceeded in different branches using git version control and successfully developed patches were merged to ruling branch . Customer view points and Teams as an inspiration was taken in mind to develop this project. Bugs were solved according to priority scale
+Priority scale : P5 (maximum) to P1 (Least)
+
+| Week | Task |  Remarks |
+|------|:----:|---------|
+| 1    | **Design phase** P4: basic app built by exploring technologies  , P3: Setup server Peer.js , express , socket.io P2: Chatbox  |   Successfull setup implementation and chat box            |
+| 2    | P4: Screen Sharing , P3: Filters , P2:Send messages button , P5: PeerId undefined(Bug)     |    All bugs resolved             |
+| 3    | P4: List of Participants, P5: Firebase reference error , P3:Hand raise , P5: PeerId undefined(Bug) , P4: Video call connection     |     Problem statement tasking completed|
+| 4    | **Desgin phase and build** P4: Chat Before and after with chat rooms , **Testing and review** P3:Hosting on Azure , P5: Service unavaible error 505 (Bug) , P4: Homepage , P3:Record of participants    |    Adopted task completed  , Branch changing resolved bug             |
+
 ## Features:
 Feature | Images
 ------------ | -------------
@@ -32,16 +45,13 @@ Chat Screen | ![image](https://user-images.githubusercontent.com/56452820/125260
 ![Animated GIF-downsized](https://user-images.githubusercontent.com/56452820/125267964-e1b51180-e324-11eb-8f69-709d17aa3a5f.gif)| **Photo - filters** ![Animated GIF-downsized_large (1)](https://user-images.githubusercontent.com/56452820/125271930-e085e380-e328-11eb-943d-8f3ca64d5911.gif)
 **Chat  After and Before meeting** : | 
 ![image](https://user-images.githubusercontent.com/56452820/125268645-83d4f980-e325-11eb-8c45-66e7edc36c99.png)|![image](https://user-images.githubusercontent.com/56452820/125270334-30fc4180-e327-11eb-89f2-0b3d54e04f2d.png)
-List of participants in the room (On clicking on file button meeting record gets downloaded as right side) ![image](https://user-images.githubusercontent.com/56452820/125270284-22ae2580-e327-11eb-996c-322e90399aa9.png)|![image](https://user-images.githubusercontent.com/56452820/125270667-82a4cc00-e327-11eb-80fc-f9d947d2d049.png)
+List of participants in the room (On clicking on file button meeting record gets downloaded as right side) ![image](https://user-images.githubusercontent.com/56452820/125270284-22ae2580-e327-11eb-996c-322e90399aa9.png)| Meeting Record with timing ![image](https://user-images.githubusercontent.com/56452820/125270667-82a4cc00-e327-11eb-80fc-f9d947d2d049.png)  
+
 **Other Features :**
 Users can independently:
 1. chose to stop or resume video of any particpants 
 2. mute or unmute its audio and decrease f increase volume
-3. view on fullscreen as well
-##  Agile methology and workflow:
-
-
-
+3. view on fullscreen as well  
 
 ##  Technologies used:
 #### Programming Languages : <img alt="NodeJS" src="https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white"/><img alt="JavaScript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img alt="HTML5" src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"/><img alt="Bootstrap" src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/><img alt="jQuery" src="https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white"/>  
