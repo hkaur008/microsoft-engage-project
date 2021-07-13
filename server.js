@@ -1,3 +1,4 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
@@ -10,16 +11,16 @@ const { ExpressPeerServer } = require('peer');
 const peerServer = ExpressPeerServer(server, {
   debug: true,
 });
+//configuring environment variables
+dotenv.config();
 // server side realtime database 
 const admin = require('firebase-admin');
-var serviceAccount = require('./engage-project-9d8d3-firebase-adminsdk-vpacj-2bc49d6a67.json');
+var serviceAccount = require(process.env.MY_CREDENTIAL);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://engage-project-9d8d3-default-rtdb.firebaseio.com"
+  databaseURL: process.env.databaseURL
 });
-
-
 
 // app started
 app.set('view engine', 'ejs');
