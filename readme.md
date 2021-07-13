@@ -93,7 +93,7 @@ Feature | Explanation
 ------------ | -------------
 Specific Team group Atmosphere manager| As Teams is a chat conversational platform as well, wanted to build a chat room positivity meter to analyse chat text to extract user sentiments and emotional state during the conversation using Microsoft Cognitive Services or ML APIs.    
 Send Code integration | A microsoft teams inspired feature for developers to work in collabrative environment and code together.
-Blind mode | Switching to this mode user will hear the tool description through audios ,and can video call their families as well.
+Blind mode | Switching to this mode user will hear the tool description through audios, and can video call their families as well.
 
 Thank you ! Microsoft Team for such a wonderful mentorship program ❤️
 You can also check [My weekly record during this program](https://docs.google.com/document/d/17KTl62Htz-D9crD_tCRvy3G41SqS5Lw5Vvjkq5Fu2qM/edit?usp=sharing)
