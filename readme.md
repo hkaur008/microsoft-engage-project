@@ -33,7 +33,7 @@ Priority scale : P5 (maximum) to P1 (Least)
 | 4    | **Desgin phase and build** P4: Chat Before and after with chat rooms , **Testing and review** P3:Hosting on Azure , P5: Service unavaible error 505 (Bug) , P4: Homepage , P3:Record of participants    |    Adopted task completed  , Branch changing resolved bug             |
 
 ## 🚩 Features:
-List of Feature at [./feature.md](feature.md)
+List of Feature at [./features.md](features.md)
 Feature | Images
 ------------ | -------------
  **Hompage**  
