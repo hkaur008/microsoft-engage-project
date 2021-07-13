@@ -3,12 +3,14 @@
 ### 🚩 Overview 
 In COVID 19 pandemic , it has become cruicial for many people to work remotely from their home.Mostly Schools, Colleges and Companies started operating their works through Video Conferencing and Business Communication platforms such as Microsoft Teams who play a vital role to empower communities and stay connected.
 It is an integration of video calling and chat application with variety of features for developers, students, teams to work together in a collabrative environment.  
-This is solely built during the period of **Microsoft Engage Mentorship program'21** conducted by Microsoft provide mentorship and to enrich freshmen with various software development techniques. 
+This is solely built during the period of **Microsoft Engage Mentorship program'21** conducted by Microsoft provide mentorship and to enrich freshmen with various software development techniques.  
 #### Problem statement (as given)
-To build a fully functional prototype with at least one mandatory functionality - a minimum of two participants should be able connect with each other using the product to have a video conversation.
+To build a fully functional prototype with at least one mandatory functionality - a minimum of two participants should be able connect with each other using the product to have a video conversation.  
+Status : Accomplised by extending to group calling app from 2 people 
 
 ##### Adopt feature:
 Include a chat feature in your application where meeting participants can share info without disrupting the flow of the meeting. Through this feature the participants should be able have conversation befor joining, while in the meet and after leaving the meeting.
+Status : Accomplised  
 
 <img width=49% src="/readme_assets/homepage.gif"> <img width=49% src="/readme_assets/hoveroverhome.gif">
 
